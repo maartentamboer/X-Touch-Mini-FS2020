@@ -1,0 +1,32 @@
+{
+  "version":
+  {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "encoders": [
+    {
+      "index": 1,
+      "event_up": "HEADING_BUG_INC",
+      "event_down": "HEADING_BUG_DEC"
+    },
+    {
+      "index": 2,
+      "event_up": "AP_SPD_VAR_INC",
+      "event_down": "AP_SPD_VAR_DEC",
+      "condition": {
+        "simvar": "AUTOPILOT_VERTICAL_HOLD",
+        "event_up": "AP_VS_VAR_INC",
+        "event_down": "AP_VS_VAR_DEC"
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "index": 1,
+      "event": "TOGGLE_FLIGHT_DIRECTOR",
+      "simvar_led": "AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE"
+    }
+  ]
+}
