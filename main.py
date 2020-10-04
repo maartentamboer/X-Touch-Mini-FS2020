@@ -1,9 +1,12 @@
 # This is a sample Python script.
 import mido
 import time
+import json
+from functools import partial
 from SimConnect import *
 from rotaryencoder import *
 from pushbutton import *
+from configfile import *
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -115,14 +118,6 @@ def midi_test():
 
     inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)
 
-    encoder = RotaryEncoder(1, outport)
-    encoder.bind_to_event(ae.find('HEADING_BUG_INC'),
-                          ae.find('HEADING_BUG_DEC'))
-
-    btn = PushButton(1, outport)
-    btn.bind_led_to_simvar('AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE')
-    btn.bind_to_event(ae.find('TOGGLE_FLIGHT_DIRECTOR'))
-
     encs = []
     for e in range(1, 17):
         print(e)
@@ -161,10 +156,78 @@ def midi_test():
         #         btns[x].set_led_on_off(val, False)
         #         time.sleep(0.05)
 
+
+def main_app(offline: bool):
+    sm = None
+    aq = None
+    ae = None
+    if not offline:
+        sm = SimConnect()
+        aq = AircraftRequests(sm, _time=200)
+        ae = AircraftEvents(sm)
+
+    outport = mido.open_output('X-TOUCH MINI 1')
+
+    control_change_dict = {}
+    note_dict = {}
+
+    def event(name: str):
+        print(f"{name}")
+
+    def create_partial(name: str):
+        return partial(event, name)
+
+    def handle_message(msg: mido.Message):
+        # print(msg)
+        if msg.type == 'control_change':
+            if msg.control in control_change_dict:
+                control_change_dict[msg.control].on_cc_data(msg.value)
+        elif msg.type == 'note_on':
+            if msg.note in note_dict:
+                note_dict[msg.note].on_note_data(True)
+        elif msg.type == 'note_off':
+            if msg.note in note_dict:
+                note_dict[msg.note].on_note_data(False)
+
+    inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)
+
+    encoders = []
+    buttons = []
+
+    for e in range(1, 17):
+        encoder = RotaryEncoder(e, outport)
+        encoders.append(encoder)
+
+    for b in range(1, 33):
+        btn = PushButton(b, outport)
+        buttons.append(btn)
+
+    c = ConfigFile(encoders, buttons, ae)
+    c.configure()
+    triggers = c.triggers
+
+    for encoder in encoders:
+        control_change_dict[encoder.rotary_control_channel] = encoder
+        note_dict[encoder.button_note] = encoder
+
+    for btn in buttons:
+        note_dict[btn.button_note] = btn
+
+    triggers[0].on_simvar_data(1.0)
+    objs = buttons + encoders + triggers
+    while True:
+        for obj in objs:
+            if obj.bound_simvar and aq:
+                sv = aq.get(obj.bound_simvar)
+                obj.on_simvar_data(sv)
+        time.sleep(0.1)
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # print_hi('PyCharm')
     # simconnect_test()
     # midi_test()
+    main_app(False)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -1,3 +1,4 @@
+import time
 import mido
 from activelayer import *
 
@@ -10,6 +11,13 @@ class RotaryEncoder:
         self._on_layer = ActiveLayerIdentifier.A
         self._event_up = None
         self._event_down = None
+        self._alternate_event_up = None
+        self._alternate_event_down = None
+        self._alternate_active = False
+        self._event_press = None
+        self._event_press_short = None
+        self._event_press_long = None
+        self._time_of_note_on = time.time()
 
         if self._encoder_index > 8:
             self._receive_data_cc += 2
@@ -42,6 +50,19 @@ class RotaryEncoder:
         self._event_up = event_up
         self._event_down = event_down
 
+    def bind_to_alternate_event(self, event_up, event_down):
+        self._alternate_event_up = event_up
+        self._alternate_event_down = event_down
+
+    def bind_press(self, event):
+        self._event_press = event
+
+    def bind_short_press(self, event):
+        self._event_press_short = event
+
+    def bind_long_press(self, event):
+        self._event_press_long = event
+
     @property
     def rotary_control_channel(self):
         return self._receive_data_cc
@@ -50,21 +71,48 @@ class RotaryEncoder:
     def button_note(self):
         return self._receive_data_note
 
+    @property
+    def bound_simvar(self):
+        return None
+
     def on_cc_data(self, value):
         print(f"on_cc_data: {self._encoder_index}: {value}")
         self._update_active_layer()
         times = abs(64 - value)
-        if value > 64 and self._event_up:
-            for x in range(times):
-                self._event_up()
-        elif self._event_down:
-            for x in range(times):
-                self._event_down()
+        up_event = self._event_up
+        down_event = self._event_down
+        if self._alternate_active:
+            up_event = self._alternate_event_up
+            down_event = self._alternate_event_down
 
+        if value > 64 and up_event:
+            for x in range(times):
+                up_event()
+        elif down_event:
+            for x in range(times):
+                down_event()
 
-    def on_note_data(self):
-        print(f"on_note_data ENC: {self._encoder_index}")
+    def on_note_data(self, on: bool):
+        print(f"on_note_data ENC: {self._encoder_index}: {on}")
         self._update_active_layer()
+        if on:
+            if self._event_press:
+                self._event_press()
+            self._time_of_note_on = time.time()
+        else:
+            diff = time.time() - self._time_of_note_on
+            if diff > 0.5 and self._event_press_long:
+                self._event_press_long()
+            elif self._event_press_short:
+                self._event_press_short()
+
+    def on_alternate(self, enable: bool):
+        self._alternate_active = enable
+        self.set_led_ring_on_off(True, self._alternate_active)
+
+    def on_alternate_toggle(self):
+        self._alternate_active = not self._alternate_active
+        self.set_led_ring_on_off(True, self._alternate_active)
 
     def _update_active_layer(self):
         ActiveLayer().active_layer = self._on_layer

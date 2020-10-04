@@ -8,25 +8,102 @@
   "encoders": [
     {
       "index": 1,
+      "event_up": "KOHLSMAN_INC",
+      "event_down": "KOHLSMAN_DEC",
+      "event_press": "BAROMETRIC"
+    },
+    {
+      "index": 2,
       "event_up": "HEADING_BUG_INC",
       "event_down": "HEADING_BUG_DEC"
     },
     {
-      "index": 2,
+      "index": 3,
+      "event_up": "VOR1_OBI_INC",
+      "event_down": "VOR1_OBI_DEC"
+    },
+    {
+      "index": 4,
+      "event_up": "AP_ALT_VAR_INC",
+      "event_down": "AP_ALT_VAR_DEC"
+    },
+    {
+      "index": 5,
       "event_up": "AP_SPD_VAR_INC",
       "event_down": "AP_SPD_VAR_DEC",
-      "condition": {
-        "simvar": "AUTOPILOT_VERTICAL_HOLD",
-        "event_up": "AP_VS_VAR_INC",
-        "event_down": "AP_VS_VAR_DEC"
-      }
+      "alternate_event_up": "AP_VS_VAR_INC",
+      "alternate_event_down": "AP_VS_VAR_DEC"
+    },
+    {
+      "index": 6,
+      "event_up": "NAV1_RADIO_WHOLE_INC",
+      "event_down": "NAV1_RADIO_WHOLE_DEC",
+      "alternate_event_up": "NAV1_RADIO_FRACT_INC",
+      "alternate_event_down": "NAV1_RADIO_FRACT_DEC",
+      "event_short_press": "{alternate}",
+      "event_long_press": "NAV1_RADIO_SWAP"
     }
   ],
   "buttons": [
     {
       "index": 1,
-      "event": "TOGGLE_FLIGHT_DIRECTOR",
+      "event_press": "TOGGLE_FLIGHT_DIRECTOR",
       "simvar_led": "AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE"
+    },
+    {
+      "index": 2,
+      "event_press": "AP_HDG_HOLD",
+      "simvar_led": "AUTOPILOT_HEADING_LOCK"
+    },
+    {
+      "index": 3,
+      "event_press": "AP_BC_HOLD",
+      "simvar_led": "AUTOPILOT_BACKCOURSE_HOLD"
+    },
+    {
+      "index": 4,
+      "event_press": "AP_ALT_HOLD",
+      "simvar_led": "AUTOPILOT_ALTITUDE_LOCK"
+    },
+    {
+      "index": 5,
+      "event_press": "AP_VS_HOLD",
+      "simvar_led": "AUTOPILOT_VERTICAL_HOLD"
+    },
+    {
+      "index": 9,
+      "event_press": "AP_MASTER",
+      "simvar_led": "AUTOPILOT_MASTER"
+    },
+    {
+      "index": 10,
+      "event_press": "AP_NAV1_HOLD",
+      "simvar_led": "AUTOPILOT_NAV1_LOCK"
+    },
+    {
+      "index": 11,
+      "event_press": "AP_APR_HOLD",
+      "simvar_led": "AUTOPILOT_APPROACH_HOLD"
+    },
+    {
+      "index": 12
+    },
+    {
+      "index": 13,
+      "event_press": "FLIGHT_LEVEL_CHANGE",
+      "simvar_led": "AUTOPILOT_FLIGHT_LEVEL_CHANGE"
+    },
+    {
+      "index": 14,
+      "event_press": "YAW_DAMPER_TOGGLE",
+      "simvar_led": "AUTOPILOT_YAW_DAMPER"
+    }
+  ],
+  "triggers": [
+    {
+      "simvar": "AUTOPILOT_VERTICAL_HOLD",
+      "trigger_type": "encoder",
+      "trigger_index": 5
     }
   ]
 }
