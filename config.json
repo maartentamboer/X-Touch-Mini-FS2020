@@ -99,6 +99,14 @@
       "simvar_led": "AUTOPILOT_YAW_DAMPER"
     }
   ],
+  "faders": [
+    {
+      "index": 1,
+      "event_change": "THROTTLE_SET",
+      "min_value": 0,
+      "max_value": 16383
+    }
+  ],
   "triggers": [
     {
       "simvar": "AUTOPILOT_VERTICAL_HOLD",

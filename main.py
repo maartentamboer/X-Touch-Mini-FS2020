@@ -4,6 +4,7 @@ import time
 from SimConnect import *
 from rotaryencoder import *
 from pushbutton import *
+from fader import *
 from configfile import *
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -44,6 +45,7 @@ def main_app(offline: bool):
 
     encoders = []
     buttons = []
+    faders = []
 
     for e in range(1, 17):
         encoder = RotaryEncoder(e, outport)
@@ -53,7 +55,11 @@ def main_app(offline: bool):
         btn = PushButton(b, outport)
         buttons.append(btn)
 
-    c = ConfigFile(encoders, buttons, ae)
+    for f in range(1, 3):
+        fader = Fader(f)
+        faders.append(fader)
+
+    c = ConfigFile(encoders, buttons, faders, ae)
     c.configure()
     triggers = c.triggers
 
@@ -63,6 +69,9 @@ def main_app(offline: bool):
 
     for btn in buttons:
         note_dict[btn.button_note] = btn
+
+    for f in faders:
+        control_change_dict[f.control_channel] = f
 
     triggers[0].on_simvar_data(1.0)
     objs = buttons + encoders + triggers

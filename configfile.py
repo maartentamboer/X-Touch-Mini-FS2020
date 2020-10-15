@@ -7,12 +7,14 @@ from SimConnect import AircraftEvents
 from pushbutton import *
 from rotaryencoder import *
 from trigger import *
+from fader import *
 
 
 class ConfigFile:
-    def __init__(self, encoders: List[RotaryEncoder], buttons: List[PushButton], ae: AircraftEvents):
+    def __init__(self, encoders: List[RotaryEncoder], buttons: List[PushButton], faders: List[Fader], ae: AircraftEvents):
         self._encoders = encoders
         self._buttons = buttons
+        self._faders = faders
         self._triggers = []
         self._ae = ae
 
@@ -21,6 +23,7 @@ class ConfigFile:
             data = json.load(json_file)
             self._configure_encoders(data['encoders'])
             self._configure_buttons(data['buttons'])
+            self._configure_faders(data['faders'])
             self._configure_triggers(data['triggers'])
 
     @property
@@ -29,6 +32,9 @@ class ConfigFile:
 
     def _mock_binding(self, msg: str):
         print(f"{msg}")
+
+    def _mock_binding(self, msg: str, value):
+        print(f"{msg} to {value}")
 
     def _create_binding(self, obj, event: str):
         if event == "{alternate}":
@@ -82,6 +88,17 @@ class ConfigFile:
                 button.bind_long_press(self._create_binding(button, event_long_press))
             if simvar_led:
                 button.bind_led_to_simvar(simvar_led)
+
+    def _configure_faders(self, data):
+        for elem in data:
+            print(elem)
+            index = elem['index']
+            event_change = elem['event_change']
+            min_value = elem['min_value']
+            max_value = elem['max_value']
+
+            fader = self._faders[index - 1]
+            fader.bind_to_event(self._create_binding(fader, event_change), min_value, max_value)
 
     def _configure_triggers(self, data):
         for elem in data:
