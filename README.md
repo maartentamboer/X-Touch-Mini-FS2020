@@ -8,7 +8,7 @@ _Control FS2020 with a Behringer X-Touch Mini_
 <img src="https://user-images.githubusercontent.com/82336/96199071-7e8d7e80-0f4e-11eb-97e7-30d4527aa112.png" alt="X-TOUCH-MINI_P0B3M_Top_XL" width="500">
 
 # Installation
-Download the zip, extract, run the exe. In case you want to modify the code follow the instructions below
+Download the zip, extract, run the exe. In case you want to modify the code follow the instructions below.
 
 | Release archive | Development |  
 | -------------------------------------------------- | -------- |  
@@ -16,7 +16,7 @@ Download the zip, extract, run the exe. In case you want to modify the code foll
 
 
 # Configuration
-Modify config.json to change assignments
+Modify config.json to change assignments.
 
 # X-Touch configuration
 To use the encoders, the behavior must be set to Relative2 mode.
