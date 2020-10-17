@@ -28,12 +28,15 @@ I'm not a python coder and I usually work on a Mac, I'll put as many comments in
 
 - `git`
 - `python` [https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/)
+- Make sure you add python to your command line path variable
+![python_path](https://user-images.githubusercontent.com/82336/96336775-1045da80-107a-11eb-8b4e-bd80fd6b170d.png)
+
 - make python and pip available in the windows terminal https://www.geeksforgeeks.org/how-to-set-up-command-prompt-for-python-in-windows10/
 - visual c++, installed via build tools installer https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16
 
 ```
  # I prefer to use git bash as a terminal over the windows cmd
-git clone https://github.com/ticktricktrack/X-Touch-Mini-FS2020.git
+git clone https://github.com/maartentamboer/X-Touch-Mini-FS2020.git
 cd X-Touch-Mini-FS2020
 pip install -r requirements.txt
 ```
