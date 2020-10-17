@@ -3,6 +3,14 @@ Control FS2020 with a Behringer X-Touch Mini
 
 <img src="https://user-images.githubusercontent.com/82336/96199071-7e8d7e80-0f4e-11eb-97e7-30d4527aa112.png" alt="X-TOUCH-MINI_P0B3M_Top_XL" width="500">
 
+# Installation
+Download an executable via this [link](https://github.com/maartentamboer/X-Touch-Mini-FS2020/releases/latest/X-Touch-Mini-FS2020.zip)
+
+| Release archive (recommended) | Development |  
+| -------------------------------------------------- | -------- |  
+| [![Download](https://img.shields.io/badge/download-.zip-blue?style=for-the-badge)](https://github.com/maartentamboer/X-Touch-Mini-FS2020/releases/latest/download/X-Touch-Mini-FS2020.zip) | See below |  
+
+
 # Configuration
 Modify config.json to change assignments
 
@@ -12,7 +20,7 @@ To help with that I've added my config files that can be programmed to the X-Tou
 X-Touch editor software from Behringer.  
 Download it from their [Product page](https://www.behringer.com/product.html?modelCode=P0B3M).
 
-![xtouch_editor](https://user-images.githubusercontent.com/82336/96199074-7fbeab80-0f4e-11eb-9bb6-bf8b912a0fb2.png)
+<img src="https://user-images.githubusercontent.com/82336/96199074-7fbeab80-0f4e-11eb-9bb6-bf8b912a0fb2.png" alt="xtouch_editor" width="500">
 
 # Run
 
