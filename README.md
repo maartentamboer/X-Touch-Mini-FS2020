@@ -1,7 +1,7 @@
 # X-Touch-Mini-FS2020
 Control FS2020 with a Behringer X-Touch Mini
 
-![X-TOUCH-MINI_P0B3M_Top_XL](https://user-images.githubusercontent.com/82336/96199071-7e8d7e80-0f4e-11eb-97e7-30d4527aa112.png)
+<img src="https://user-images.githubusercontent.com/82336/96199071-7e8d7e80-0f4e-11eb-97e7-30d4527aa112.png" alt="X-TOUCH-MINI_P0B3M_Top_XL" width="500">
 
 # Configuration
 Modify config.json to change assignments
