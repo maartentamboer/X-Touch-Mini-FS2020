@@ -1,0 +1,165 @@
+{
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "encoders": [
+    {
+      "index": 1,
+      "event_up": "KOHLSMAN_INC",
+      "event_down": "KOHLSMAN_DEC",
+      "event_press": "BAROMETRIC"
+    },
+    {
+      "index": 2,
+      "event_up": "AP_SPD_VAR_INC",
+      "event_down": "AP_SPD_VAR_DEC",
+      "event_press": {
+        "event": "SPEED_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 1,
+        "description": "A32NX - set AP Speed Hold to selected mode"
+      },
+      "event_long_press": {
+        "event": "SPEED_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 2,
+        "description": "A32NX - set AP Speed Hold to managed mode"
+      }
+    },
+    {
+      "index": 3,
+      "event_up": "HEADING_BUG_INC",
+      "event_down": "HEADING_BUG_DEC",
+      "event_press": {
+        "event": "HEADING_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 1,
+        "description": "A32NX - set AP Heading Hold to selected mode"
+      },
+      "event_long_press": {
+        "event": "HEADING_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 2,
+        "description": "A32NX - set AP Heading Hold to managed mode"
+      }
+    },
+    {
+      "index": 4,
+      "event_up": "AP_ALT_VAR_INC",
+      "event_down": "AP_ALT_VAR_DEC",
+      "event_press": {
+        "event": "ALTITUDE_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 1,
+        "description": "A32NX - set AP Altitude Hold to selected mode"
+      },
+      "event_long_press": {
+        "event": "ALTITUDE_SLOT_INDEX_SET",
+        "type": "manual",
+        "value": 2,
+        "description": "A32NX - set AP Altitude Hold to managed mode"
+      }
+    },
+    {
+      "index": 5,
+      "event_up": "AP_SPD_VAR_INC",
+      "event_down": "AP_SPD_VAR_DEC",
+      "alternate_event_up": "AP_VS_VAR_INC",
+      "alternate_event_down": "AP_VS_VAR_DEC"
+    },
+    {
+      "index": 6,
+      "event_up": "NAV1_RADIO_WHOLE_INC",
+      "event_down": "NAV1_RADIO_WHOLE_DEC",
+      "alternate_event_up": "NAV1_RADIO_FRACT_INC",
+      "alternate_event_down": "NAV1_RADIO_FRACT_DEC",
+      "event_short_press": "{alternate}",
+      "event_long_press": "NAV1_RADIO_SWAP"
+    },
+    {
+      "index": 7,
+      "event_up": "ELEV_TRIM_UP",
+      "event_down": "ELEV_TRIM_DN"
+    }
+  ],
+  "buttons": [
+    {
+      "index": 1,
+      "event_press": [ "TOGGLE_FLIGHT_DIRECTOR", "AP_MASTER" ],
+      "simvar_led": "AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE"
+    },
+    {
+      "index": 2,
+      "event_press": "AP_BC_HOLD",
+      "simvar_led": "AUTOPILOT_BACKCOURSE_HOLD"
+    },
+    {
+      "index": 3,
+      "event_press": "AP_HDG_HOLD",
+      "simvar_led": "AUTOPILOT_HEADING_LOCK"
+    },
+    {
+      "index": 4,
+      "event_press": "AP_ALT_HOLD",
+      "simvar_led": "AUTOPILOT_ALTITUDE_LOCK"
+    },
+    {
+      "index": 5,
+      "event_press": "AP_VS_HOLD",
+      "simvar_led": "AUTOPILOT_VERTICAL_HOLD"
+    },
+    {
+      "index": 7,
+      "event_press": "FLAPS_DECR"
+    },
+    {
+      "index": 15,
+      "event_press": "FLAPS_INCR"
+    },
+    {
+      "index": 9,
+      "event_press": "AP_MASTER",
+      "simvar_led": "AUTOPILOT_MASTER"
+    },
+    {
+      "index": 10,
+      "event_press": "AP_NAV1_HOLD",
+      "simvar_led": "AUTOPILOT_NAV1_LOCK"
+    },
+    {
+      "index": 11,
+      "event_press": "AP_APR_HOLD",
+      "simvar_led": "AUTOPILOT_APPROACH_HOLD"
+    },
+    {
+      "index": 12
+    },
+    {
+      "index": 13,
+      "event_press": "FLIGHT_LEVEL_CHANGE",
+      "simvar_led": "AUTOPILOT_FLIGHT_LEVEL_CHANGE"
+    },
+    {
+      "index": 14,
+      "event_press": "YAW_DAMPER_TOGGLE",
+      "simvar_led": "AUTOPILOT_YAW_DAMPER"
+    }
+  ],
+  "faders": [
+    {
+      "index": 1,
+      "event_change": "THROTTLE_SET",
+      "min_value": 0,
+      "max_value": 16383
+    }
+  ],
+  "triggers": [
+    {
+      "simvar": "AUTOPILOT_VERTICAL_HOLD",
+      "trigger_type": "encoder",
+      "trigger_index": 5
+    }
+  ]
+}

@@ -130,3 +130,6 @@ dmypy.json
 
 # idea
 .idea/
+
+# Visual Studio 2019 environment
+.vs
