@@ -21,7 +21,7 @@ class ConfigFile:
         self._ae = ae
 
     def configure(self):
-        with open('config_a320.json') as json_file:
+        with open('config.json') as json_file:
             data = json.load(json_file)
             self._configure_encoders(data['encoders'])
             self._configure_buttons(data['buttons'])
