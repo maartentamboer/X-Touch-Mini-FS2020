@@ -21,7 +21,7 @@ class ConfigFile:
         self._ae = ae
 
     def configure(self):
-        with open('config.json') as json_file:
+        with open('config_a320.json') as json_file:
             data = json.load(json_file)
             self._configure_encoders(data['encoders'])
             self._configure_buttons(data['buttons'])
@@ -38,8 +38,7 @@ class ConfigFile:
     def _mock_binding(self, msg: str, value):
         print(f"{msg} to {value}")
 
-    def _create_binding(self, obj, events):        
-        #Support multiple events for one binding
+    def _create_binding(self, obj, events): #Support multiple events for one binding 
         event_queue = EventQueue()
 
         if isinstance(events, list):
@@ -51,7 +50,7 @@ class ConfigFile:
         return event_queue
 
     def _create_single_binding(self, obj, event):
-        if (isinstance(event, str)): #if event is single STRING
+        if (isinstance(event, str)): #if event is single STRING in JSON
             event_name = event
             event_type = "auto"
             event_value = "0"
@@ -64,7 +63,7 @@ class ConfigFile:
 
         if self._ae:
             if event_name:
-                return SingleEvent(self._ae, event_name, event_type, event_value, "")
+                return SingleEvent(self._ae, event_name, event_type, event_value, event_description)
             elif event == "{alternate}":
                 return obj.on_alternate_toggle            
             else:

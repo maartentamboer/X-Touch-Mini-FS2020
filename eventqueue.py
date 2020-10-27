@@ -7,7 +7,7 @@ class SingleEvent(object):
         self.value = _value
         self.description = _description
         if (_type == "manual"):
-            self.event = Event(_eventname.encode(), _ae.sm) #manual event
+            self.event = Event(_eventname.encode(), _ae.sm) #manual event with forced value
         else:
             self.event = _ae.find(_eventname) #autofind event
             
