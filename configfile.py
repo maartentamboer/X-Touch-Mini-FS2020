@@ -4,6 +4,8 @@ from functools import partial
 
 from SimConnect import AircraftEvents
 
+from eventqueue import *
+
 from pushbutton import *
 from rotaryencoder import *
 from trigger import *
@@ -36,14 +38,39 @@ class ConfigFile:
     def _mock_binding(self, msg: str, value):
         print(f"{msg} to {value}")
 
-    def _create_binding(self, obj, event: str):
-        if event == "{alternate}":
-            return obj.on_alternate_toggle
+    def _create_binding(self, obj, events): #Support multiple events for one binding 
+        event_queue = EventQueue()
+
+        if isinstance(events, list):
+            for event in events:
+                event_queue.add(self._create_single_binding(obj, event))
+        else:
+            event_queue.add(self._create_single_binding(obj, events))
+
+        return event_queue
+
+    def _create_single_binding(self, obj, event):
+        if (isinstance(event, str)): #if event is single STRING in JSON
+            event_name = event
+            event_type = "auto"
+            event_value = "0"
+            event_description = ""
+        else: #if event is complex type {"event": "ALTITUDE_SLOT_INDEX_SET", "type": "manual", "value": 1, "description": "A32NX - set AP Altitude Hold to selected mode"},
+            event_name = event.get('event')
+            event_type = event.get('type')
+            event_value = event.get('value')
+            event_description = event.get('description')
+
         if self._ae:
-            return self._ae.find(event)
+            if event_name:
+                return SingleEvent(self._ae, event_name, event_type, event_value, event_description)
+            elif event == "{alternate}":
+                return obj.on_alternate_toggle            
+            else:
+                return SingleEvent(self._ae, event)
         else:
             return partial(self._mock_binding, event)
-
+ 
     def _configure_encoders(self, data):
         for elem in data:
             print(elem)
