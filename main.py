@@ -59,7 +59,7 @@ def main_app(offline: bool):
         fader = Fader(f)
         faders.append(fader)
 
-    c = ConfigFile(encoders, buttons, faders, ae)
+    c = ConfigFile(encoders, buttons, faders, ae, aq)
     c.configure()
     triggers = c.triggers
 

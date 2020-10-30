@@ -2,7 +2,7 @@ import json
 from typing import List
 from functools import partial
 
-from SimConnect import AircraftEvents
+from SimConnect import AircraftEvents, AircraftRequests
 
 from eventqueue import *
 
@@ -10,15 +10,18 @@ from pushbutton import *
 from rotaryencoder import *
 from trigger import *
 from fader import *
+from conditionaltrigger import ConditionalTrigger
 
 
 class ConfigFile:
-    def __init__(self, encoders: List[RotaryEncoder], buttons: List[PushButton], faders: List[Fader], ae: AircraftEvents):
+    def __init__(self, encoders: List[RotaryEncoder], buttons: List[PushButton], faders: List[Fader],
+                 ae: AircraftEvents, aq: AircraftRequests):
         self._encoders = encoders
         self._buttons = buttons
         self._faders = faders
         self._triggers = []
         self._ae = ae
+        self._aq = aq
 
     def configure(self):
         with open('config.json') as json_file:
@@ -27,6 +30,7 @@ class ConfigFile:
             self._configure_buttons(data['buttons'])
             self._configure_faders(data['faders'])
             self._configure_triggers(data['triggers'])
+            self._configure_conditional_triggers(data.get('conditional_triggers', None))
 
     @property
     def triggers(self):
@@ -58,16 +62,16 @@ class ConfigFile:
         else: #if event is complex type {"event": "ALTITUDE_SLOT_INDEX_SET", "type": "manual", "value": 1, "description": "A32NX - set AP Altitude Hold to selected mode"},
             event_name = event.get('event')
             event_type = event.get('type')
-            event_value = event.get('value')
+            event_value = event.get('value', None)
             event_description = event.get('description')
 
         if self._ae:
             if event_name:
-                return SingleEvent(self._ae, event_name, event_type, event_value, event_description)
+                return SingleEvent(self._ae, self._aq, event_name, event_type, event_value, event_description)
             elif event == "{alternate}":
                 return obj.on_alternate_toggle            
             else:
-                return SingleEvent(self._ae, event)
+                return SingleEvent(self._ae, self._aq, event)
         else:
             return partial(self._mock_binding, event)
  
@@ -147,3 +151,15 @@ class ConfigFile:
             t.bind_to_event(object_to_trigger.on_alternate)
 
             self._triggers.append(t)
+
+    def _configure_conditional_triggers(self, data):
+        if not data:
+            return
+        for elem in data:
+            print(elem)
+            condition = ""
+            for part in elem['condition']:
+                condition += part + '\n'
+            print(condition)
+
+            # c = ConditionalTrigger(condition)
