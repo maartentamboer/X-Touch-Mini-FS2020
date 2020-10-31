@@ -26,6 +26,8 @@ def main_app(offline: bool):
         global_storage.set_aircraft_events(MockAircraftEvents())
         global_storage.set_aircraft_requests(MockAircraftRequests())
 
+    aircraft = aq.get('TITLE')
+    print("Current aircraft:", aircraft)
     outport = mido.open_output('X-TOUCH MINI 1')  # pylint: disable=no-member
 
     control_change_dict = {}
@@ -57,7 +59,7 @@ def main_app(offline: bool):
         fader = Fader(f)
         global_storage.add_fader(fader)
 
-    c = ConfigFile()
+    c = ConfigFile(aircraft)
     c.configure()
     triggers = c.triggers
 
@@ -72,14 +74,22 @@ def main_app(offline: bool):
         control_change_dict[f.control_channel] = f
 
     triggers[0].on_simvar_data(1.0)
+    count = 0
     while True:
         for obj in GlobalStorage().all_elements:
             if obj.bound_simvar and aq:
                 sv = aq.get(obj.bound_simvar)
                 obj.on_simvar_data(sv)
-        time.sleep(0.1)
 
+        current_aircraft = aq.get('TITLE')
+        if current_aircraft and aircraft != current_aircraft:
+            print("Aircraft changed from", aircraft, "to", current_aircraft)
+            break
+        time.sleep(0.05)
+
+    global_storage.clear()
     inport.close()
+    outport.close()
 
 
 # Press the green button in the gutter to run the script.
@@ -87,6 +97,7 @@ if __name__ == '__main__':
     # print_hi('PyCharm')
     # simconnect_test()
     # midi_test()
-    main_app(False)
+    while True:
+        main_app(False)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

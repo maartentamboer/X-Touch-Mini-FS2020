@@ -7,21 +7,33 @@ from globalstorage import GlobalStorage
 
 
 class ConfigFile:
-    def __init__(self):
+    def __init__(self, aircraft):
         self._encoders = GlobalStorage().encoders
         self._buttons = GlobalStorage().buttons
         self._faders = GlobalStorage().faders
         self._triggers = GlobalStorage().triggers
         self._ae = GlobalStorage().aircraft_events
         self._aq = GlobalStorage().aircraft_requests
+        self._aircraft = aircraft
 
     def configure(self):
-        with open('config.json') as json_file:
-            data = json.load(json_file)
-            self._configure_encoders(data['encoders'])
-            self._configure_buttons(data['buttons'])
-            self._configure_faders(data['faders'])
-            self._configure_triggers(data['triggers'])
+        with open('Configurations/config.json') as base_json_file:
+            base_data = json.load(base_json_file)
+            config_file = base_data['default']
+            for elem in base_data['aircraft']:
+                aircraft_contains = elem['aircraft_contains']
+                file = elem['file']
+                if aircraft_contains in str(self._aircraft):
+                    config_file = file
+
+            config_file = 'Configurations/' + config_file  # Add folder prefix
+            print("Loading config file:", config_file)
+            with open(config_file) as json_file:
+                data = json.load(json_file)
+                self._configure_encoders(data['encoders'])
+                self._configure_buttons(data['buttons'])
+                self._configure_faders(data['faders'])
+                self._configure_triggers(data['triggers'])
 
     @property
     def triggers(self):
@@ -53,7 +65,7 @@ class ConfigFile:
 
     def _configure_encoders(self, data):
         for elem in data:
-            print(elem)
+            # print(elem)
             index = elem['index']
             event_up = elem.get('event_up')
             event_down = elem.get('event_down')
@@ -79,7 +91,7 @@ class ConfigFile:
 
     def _configure_buttons(self, data):
         for elem in data:
-            print(elem)
+            # print(elem)
             index = elem['index']
             event_press = elem.get('event_press')
             event_short_press = elem.get('event_short_press')
@@ -98,7 +110,7 @@ class ConfigFile:
 
     def _configure_faders(self, data):
         for elem in data:
-            print(elem)
+            # print(elem)
             index = elem['index']
             event_change = elem['event_change']
             min_value = elem['min_value']
@@ -109,7 +121,7 @@ class ConfigFile:
 
     def _configure_triggers(self, data):
         for elem in data:
-            print(elem)
+            # print(elem)
             simvar = elem.get('simvar')
             trigger_type = elem.get('trigger_type', None)
             trigger_index = elem.get('trigger_index', None)

@@ -1,0 +1,13 @@
+{
+  "default": "config_default.json",
+  "aircraft": [
+    {
+      "aircraft_contains": "TBM 930",
+      "file": "config_default.json"
+    },
+    {
+      "aircraft_contains": "A320",
+      "file": "config_a320.json"
+    }
+  ]
+}
