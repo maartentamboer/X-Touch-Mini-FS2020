@@ -1,17 +1,19 @@
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from SimConnect import AircraftRequests, AircraftEvents
+from globalstorage import GlobalStorage
 
 env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
-class ConditionalTrigger:
-    def __init__(self, template, ae: AircraftEvents, aq: AircraftRequests):
+
+class ConditionalRunner:
+    def __init__(self, template):
         template_str = "".join(template)
         self._template = env.from_string(template_str)
-        self._ae = ae
-        self._aq = aq
+        self._ae = GlobalStorage().aircraft_events
+        self._aq = GlobalStorage().aircraft_requests
 
     def get_simvar_value(self, name: str):
         value = self._aq.get(name)
@@ -28,6 +30,7 @@ class ConditionalTrigger:
 
     def trigger_encoder_alternate(self, index: int, value: bool):
         print("trigger_encoder_alternate", index, value)
+        GlobalStorage().encoders[index-1].on_alternate(value)
 
     def execute(self):
         self._template.render(data=self)

@@ -110,7 +110,7 @@ class RotaryEncoder:
         self._alternate_active = enable
         self.set_led_ring_on_off(True, self._alternate_active)
 
-    def on_alternate_toggle(self):
+    def on_alternate_toggle(self, value):
         self._alternate_active = not self._alternate_active
         self.set_led_ring_on_off(True, self._alternate_active)
 

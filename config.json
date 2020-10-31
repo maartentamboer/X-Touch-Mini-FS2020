@@ -116,19 +116,11 @@
   "triggers": [
     {
       "simvar": "AUTOPILOT_VERTICAL_HOLD",
-      "trigger_type": "encoder",
-      "trigger_index": 5
-    }
-  ],
-  "conditional_triggers": [
-    {
-      "simvar": "AUTOPILOT_VERTICAL_HOLD",
       "condition": [
-        "{% if data.get_simvar_value('AUTOPILOT_VERTICAL_HOLD') is true %}",
+        "{% if data.get_simvar_value('AUTOPILOT_VERTICAL_HOLD') == 1.0 %}",
           "{{ data.trigger_encoder_alternate(5, True) }}",
         "{% else %}",
           "{{ data.trigger_encoder_alternate(5, False) }}",
-          "{{ data.set_simvar_value('my_var', data.get_simvar_value('asdf')) }}",
         "{% endif %}"
       ]
     }
