@@ -16,7 +16,7 @@ Download the zip, extract, run the exe. In case you want to modify the code foll
 
 
 # Configuration
-Modify config.json to change assignments.
+Modify the files in the Configuration folder to change assignments.
 
 # X-Touch configuration
 To use the encoders, the behavior must be set to Relative2 mode.
