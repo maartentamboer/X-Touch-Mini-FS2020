@@ -1,6 +1,7 @@
 import time
 import mido
-from activelayer import *
+from activelayer import ActiveLayer, ActiveLayerIdentifier
+
 
 class RotaryEncoder:
     def __init__(self, encoder_index, outport: mido.ports.BaseOutput):
@@ -86,10 +87,10 @@ class RotaryEncoder:
             down_event = self._alternate_event_down
 
         if value > 64 and up_event:
-            for x in range(times):
+            for _ in range(times):
                 up_event()
         elif down_event:
-            for x in range(times):
+            for _ in range(times):
                 down_event()
 
     def on_note_data(self, on: bool):
@@ -110,7 +111,7 @@ class RotaryEncoder:
         self._alternate_active = enable
         self.set_led_ring_on_off(True, self._alternate_active)
 
-    def on_alternate_toggle(self):
+    def on_alternate_toggle(self, _):
         self._alternate_active = not self._alternate_active
         self.set_led_ring_on_off(True, self._alternate_active)
 

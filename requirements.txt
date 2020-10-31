@@ -1,3 +1,4 @@
 mido==1.2.9
 python-rtmidi==1.4.5
 SimConnect==0.4.19
+Jinja2~=2.11.2

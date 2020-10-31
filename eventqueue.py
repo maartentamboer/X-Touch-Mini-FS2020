@@ -1,26 +1,33 @@
-from SimConnect import *
+from SimConnect import Event
 
-class SingleEvent(object):
-    def __init__(self, _ae: AircraftEvents, _eventname, _type="auto", _value=0, _description=""):
-        self.eventname = _eventname
-        self.type = _type
-        self.value = _value
-        self.description = _description
-        if (_type == "manual"):
-            self.event = Event(_eventname.encode(), _ae.sm) #manual event with forced value
+from conditionalrunner import ConditionalRunner
+from globalstorage import GlobalStorage
+
+
+class SingleEvent:
+    def __init__(self, event_name, event_type="auto", value=0):
+        self._event_name = event_name
+        self._event_type = event_type
+        self._value = value
+        self._ae = GlobalStorage().aircraft_events
+        self._aq = GlobalStorage().aircraft_requests
+        self._event = None
+
+        if event_type == "manual":
+            self._event = Event(event_name.encode(), self._ae.sm)  # manual event with forced value
+        elif event_type == "condition":
+            self._event = ConditionalRunner(event_name)
         else:
-            self.event = _ae.find(_eventname) #autofind event
-            
+            self._event = self._ae.find(event_name)  # auto find event
 
     def __call__(self, value=0):
-        if self.type == "manual":
-            self.event(self.value)
+        if self._event_type == "manual":
+            self._event(self._value)
         else:
-            self.event(value)
-           
+            self._event(value)
 
-class EventQueue(object):
 
+class EventQueue:
     def __init__(self):
         self.event_list = []
 

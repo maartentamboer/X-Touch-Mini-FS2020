@@ -3,6 +3,7 @@ class Trigger:
     def __init__(self):
         self._simvar = None
         self._event = None
+        self._previous_data = None
 
     def bind_to_simvar(self, simvar: str):
         self._simvar = simvar
@@ -15,8 +16,11 @@ class Trigger:
         return self._simvar
 
     def on_simvar_data(self, data):
-        if self._event:
-            if data == 1.0:
-                self._event(True)
-            else:
-                self._event(False)
+        # Check if data has changed this prevents unnecessary execution of events
+        if data != self._previous_data:
+            self._previous_data = data
+            if self._event:
+                if data == 1.0:
+                    self._event(True)
+                else:
+                    self._event(False)

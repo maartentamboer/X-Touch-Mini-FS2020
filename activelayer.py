@@ -1,5 +1,6 @@
-from singleton import *
 from enum import Enum
+
+from singleton import Singleton
 
 
 class ActiveLayerIdentifier(Enum):
