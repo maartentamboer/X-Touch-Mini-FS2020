@@ -1,9 +1,8 @@
 from typing import List, Any
 
-from singleton import Singleton
-
 from SimConnect import AircraftEvents, AircraftRequests
 
+from singleton import Singleton
 from rotaryencoder import RotaryEncoder
 from pushbutton import PushButton
 from trigger import Trigger

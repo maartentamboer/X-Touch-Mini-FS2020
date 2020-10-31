@@ -4,7 +4,7 @@ from conditionalrunner import ConditionalRunner
 from globalstorage import GlobalStorage
 
 
-class SingleEvent(object):
+class SingleEvent:
     def __init__(self, event_name, event_type="auto", value=0):
         self._event_name = event_name
         self._event_type = event_type
@@ -25,9 +25,9 @@ class SingleEvent(object):
             self._event(self._value)
         else:
             self._event(value)
-           
 
-class EventQueue(object):
+
+class EventQueue:
     def __init__(self):
         self.event_list = []
 

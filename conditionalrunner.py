@@ -1,6 +1,5 @@
 
-from jinja2 import Environment, PackageLoader, select_autoescape
-from SimConnect import AircraftRequests, AircraftEvents
+from jinja2 import Environment, select_autoescape
 from globalstorage import GlobalStorage
 
 env = Environment(
@@ -28,7 +27,8 @@ class ConditionalRunner:
         print("trigger_event", name, value)
         self._ae.find(name)(int(value))
 
-    def trigger_encoder_alternate(self, index: int, value: bool):
+    @staticmethod
+    def trigger_encoder_alternate(index: int, value: bool):
         print("trigger_encoder_alternate", index, value)
         GlobalStorage().encoders[index-1].on_alternate(value)
 

@@ -1,15 +1,15 @@
-# This is a sample Python script.
-import mido
 import time
-from SimConnect import *
-from rotaryencoder import *
-from pushbutton import *
-from fader import *
-from configfile import *
+
+import mido
+
+from SimConnect import SimConnect, AircraftEvents, AircraftRequests
+from rotaryencoder import RotaryEncoder
+from pushbutton import PushButton
+from fader import Fader
+from configfile import ConfigFile
 from globalstorage import GlobalStorage
 from mocksimconnect import MockAircraftEvents, MockAircraftRequests
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
 
 def main_app(offline: bool):
     global_storage = GlobalStorage()
@@ -26,7 +26,7 @@ def main_app(offline: bool):
         global_storage.set_aircraft_events(MockAircraftEvents())
         global_storage.set_aircraft_requests(MockAircraftRequests())
 
-    outport = mido.open_output('X-TOUCH MINI 1')
+    outport = mido.open_output('X-TOUCH MINI 1')  # pylint: disable=no-member
 
     control_change_dict = {}
     note_dict = {}
@@ -43,7 +43,7 @@ def main_app(offline: bool):
             if msg.note in note_dict:
                 note_dict[msg.note].on_note_data(False)
 
-    inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)
+    inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)  # pylint: disable=no-member
 
     for e in range(1, 17):
         encoder = RotaryEncoder(e, outport)
@@ -72,13 +72,14 @@ def main_app(offline: bool):
         control_change_dict[f.control_channel] = f
 
     triggers[0].on_simvar_data(1.0)
-    # objs = buttons + encoders + triggers
     while True:
         for obj in GlobalStorage().all_elements:
             if obj.bound_simvar and aq:
                 sv = aq.get(obj.bound_simvar)
                 obj.on_simvar_data(sv)
         time.sleep(0.1)
+
+    inport.close()
 
 
 # Press the green button in the gutter to run the script.

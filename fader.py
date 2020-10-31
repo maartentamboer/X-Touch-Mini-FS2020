@@ -1,6 +1,4 @@
-import time
-import mido
-from activelayer import *
+from activelayer import ActiveLayer, ActiveLayerIdentifier
 
 
 class Fader:
