@@ -73,7 +73,6 @@ def main_app(offline: bool):
     for f in GlobalStorage().faders:
         control_change_dict[f.control_channel] = f
 
-    triggers[0].on_simvar_data(1.0)
     while True:
         for obj in GlobalStorage().all_elements:
             if obj.bound_simvar and aq:
