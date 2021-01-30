@@ -28,7 +28,7 @@ def main_app(offline: bool):
 
     aircraft = aq.get('TITLE')
     print("Current aircraft:", aircraft)
-    outport = mido.open_output('X-TOUCH MINI 1')  # pylint: disable=no-member
+    outport = mido.open_output('X-TOUCH MINI 2')  # pylint: disable=no-member
 
     control_change_dict = {}
     note_dict = {}
@@ -45,7 +45,7 @@ def main_app(offline: bool):
             if msg.note in note_dict:
                 note_dict[msg.note].on_note_data(False)
 
-    inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)  # pylint: disable=no-member
+    inport = mido.open_input('X-TOUCH MINI 1', callback=handle_message)  # pylint: disable=no-member
 
     for e in range(1, 17):
         encoder = RotaryEncoder(e, outport)
