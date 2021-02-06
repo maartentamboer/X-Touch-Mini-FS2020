@@ -39,6 +39,10 @@ class ConditionalRunner:
     def print(data):
         print(data)
 
+    @staticmethod
+    def set_button_led(index: int, on: bool, blink=False):
+        GlobalStorage().buttons[index-1].set_led_on_off(on, blink)
+
     def execute(self):
         self._template.render(data=self)
 
