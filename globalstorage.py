@@ -17,6 +17,7 @@ class GlobalStorage(metaclass=Singleton):
         self._triggers = []  # type: List[Trigger]
         self._ae = None
         self._aq = None
+        self._global_variables = {}
 
     def clear(self):
         self._buttons = []
@@ -41,6 +42,12 @@ class GlobalStorage(metaclass=Singleton):
 
     def set_aircraft_requests(self, aq: AircraftRequests):
         self._aq = aq
+
+    def set_global_variable(self, key: str, value):
+        self._global_variables[key] = value
+
+    def get_global_variable(self, key: str):
+        return self._global_variables.get(key, None)
 
     @property
     def encoders(self) -> List[RotaryEncoder]:

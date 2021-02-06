@@ -27,6 +27,18 @@ class ConditionalRunner:
     def trigger_encoder_alternate(index: int, value: bool):
         GlobalStorage().encoders[index-1].on_alternate(value)
 
+    @staticmethod
+    def set_global_variable(key: str, value):
+        GlobalStorage().set_global_variable(key, value)
+
+    @staticmethod
+    def get_global_variable(key: str):
+        return GlobalStorage().get_global_variable(key)
+
+    @staticmethod
+    def print(data):
+        print(data)
+
     def execute(self):
         self._template.render(data=self)
 
