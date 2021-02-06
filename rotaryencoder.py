@@ -111,11 +111,9 @@ class RotaryEncoder:
 
     def on_alternate(self, enable: bool):
         self._alternate_active = enable
-        self.set_led_ring_on_off(True, self._alternate_active)
 
     def on_alternate_toggle(self, _):
         self._alternate_active = not self._alternate_active
-        self.set_led_ring_on_off(True, self._alternate_active)
 
     def _update_active_layer(self):
         ActiveLayer().active_layer = self._on_layer
