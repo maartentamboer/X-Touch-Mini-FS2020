@@ -35,6 +35,18 @@ class ConfigFile:
                 self._configure_faders(data['faders'])
                 self._configure_triggers(data['triggers'])
 
+    @staticmethod
+    def get_midi_input() -> str:
+        with open('Configurations/config.json') as base_json_file:
+            base_data = json.load(base_json_file)
+            return base_data.get('midi_input_device', 'X-TOUCH MINI 0')
+
+    @staticmethod
+    def get_midi_output() -> str:
+        with open('Configurations/config.json') as base_json_file:
+            base_data = json.load(base_json_file)
+            return base_data.get('midi_output_device', 'X-TOUCH MINI 1')
+
     @property
     def triggers(self):
         return self._triggers

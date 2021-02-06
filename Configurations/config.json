@@ -9,5 +9,7 @@
       "aircraft_contains": "A320",
       "file": "config_a320.json"
     }
-  ]
+  ],
+  "midi_input_device": "X-TOUCH MINI 0",
+  "midi_output_device": "X-TOUCH MINI 1"
 }
