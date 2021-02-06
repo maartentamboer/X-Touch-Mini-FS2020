@@ -125,10 +125,17 @@
       "condition": [
         "{% if data.get_simvar_value('AUTOPILOT_VERTICAL_HOLD') == 1.0 %}",
           "{{ data.trigger_encoder_alternate(5, True) }}",
+          "{{ data.set_encoder_led(5, True) }}",
         "{% else %}",
           "{{ data.trigger_encoder_alternate(5, False) }}",
+          "{{ data.set_encoder_led(5, False) }}",
         "{% endif %}"
       ]
+    },
+    {
+      "simvar": "AUTOPILOT_HEADING_LOCK_DIR",
+      "condition": [ "{% set heading = (data.get_simvar_value('AUTOPILOT_HEADING_LOCK_DIR') / 27.0) | round %}",
+                     "{{ data.set_encoder_led_value(2, heading) }}"]
     }
   ]
 }
