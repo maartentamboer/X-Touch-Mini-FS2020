@@ -26,9 +26,16 @@ def main_app(offline: bool):
         global_storage.set_aircraft_events(MockAircraftEvents())
         global_storage.set_aircraft_requests(MockAircraftRequests())
 
+    print('Midi input devices:', mido.get_input_names())
+    print('Midi output devices:', mido.get_output_names())
+    selected_input = ConfigFile.get_midi_input()
+    selected_output = ConfigFile.get_midi_output()
+    print('Using midi input device:', selected_input)
+    print('Using midi output device:', selected_output)
+
     aircraft = aq.get('TITLE')
     print("Current aircraft:", aircraft)
-    outport = mido.open_output('X-TOUCH MINI 1')  # pylint: disable=no-member
+    outport = mido.open_output(selected_output)  # pylint: disable=no-member
 
     control_change_dict = {}
     note_dict = {}
@@ -45,7 +52,7 @@ def main_app(offline: bool):
             if msg.note in note_dict:
                 note_dict[msg.note].on_note_data(False)
 
-    inport = mido.open_input('X-TOUCH MINI 0', callback=handle_message)  # pylint: disable=no-member
+    inport = mido.open_input(selected_input, callback=handle_message)  # pylint: disable=no-member
 
     for e in range(1, 17):
         encoder = RotaryEncoder(e, outport)
