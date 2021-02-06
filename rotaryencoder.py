@@ -19,6 +19,7 @@ class RotaryEncoder:
         self._event_press_short = None
         self._event_press_long = None
         self._time_of_note_on = time.time()
+        self._current_led_ring_value = 0
 
         if self._encoder_index > 8:
             self._receive_data_cc += 2
@@ -33,8 +34,8 @@ class RotaryEncoder:
             return
         if blink:
             value += 13
-        msg = mido.Message('control_change', control=self._led_ring_value_cc, value=value)
-        self._outport.send(msg)
+        self._current_led_ring_value = value
+        self._update_led_ring()
 
     def set_led_ring_on_off(self, on: bool, blink=False):
         if ActiveLayer().active_layer != self._on_layer:
@@ -44,8 +45,8 @@ class RotaryEncoder:
             value = 27
             if blink:
                 value = 28
-        msg = mido.Message('control_change', control=self._led_ring_value_cc, value=value)
-        self._outport.send(msg)
+        self._current_led_ring_value = value
+        self._update_led_ring()
 
     def bind_to_event(self, event_up, event_down):
         self._event_up = event_up
@@ -78,6 +79,7 @@ class RotaryEncoder:
 
     def on_cc_data(self, value):
         print(f"on_cc_data: {self._encoder_index}: {value}")
+        self._update_led_ring()
         self._update_active_layer()
         times = abs(64 - value)
         up_event = self._event_up
@@ -117,3 +119,7 @@ class RotaryEncoder:
 
     def _update_active_layer(self):
         ActiveLayer().active_layer = self._on_layer
+
+    def _update_led_ring(self):
+        msg = mido.Message('control_change', control=self._led_ring_value_cc, value=self._current_led_ring_value)
+        self._outport.send(msg)
