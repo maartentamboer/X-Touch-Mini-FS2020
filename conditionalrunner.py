@@ -43,6 +43,14 @@ class ConditionalRunner:
     def set_button_led(index: int, on: bool, blink=False):
         GlobalStorage().buttons[index-1].set_led_on_off(on, blink)
 
+    @staticmethod
+    def set_encoder_led(index: int, on: bool, blink=False):
+        GlobalStorage().encoders[index-1].set_led_ring_on_off(on, blink)
+
+    @staticmethod
+    def set_encoder_led_value(index: int, value: int, blink=False):
+        GlobalStorage().encoders[index - 1].set_led_ring_value(int(value), blink)
+
     def execute(self):
         self._template.render(data=self)
 
