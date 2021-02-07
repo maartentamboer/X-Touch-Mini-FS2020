@@ -8,8 +8,8 @@ env = Environment(
 
 class ConditionalRunner:
     def __init__(self, template):
-        template_str = "".join(template)
-        self._template = env.from_string(template_str)
+        self._template_str = "".join(template)
+        self._template = env.from_string(self._template_str)
         self._ae = GlobalStorage().aircraft_events
         self._aq = GlobalStorage().aircraft_requests
 
@@ -52,7 +52,11 @@ class ConditionalRunner:
         GlobalStorage().encoders[index - 1].set_led_ring_value(int(value), blink)
 
     def execute(self):
-        self._template.render(data=self)
+        try:
+            self._template.render(data=self)
+        except Exception as e:
+            print('Exception during execution of template:', e)
+            print('For template:', self._template_str)
 
     def __call__(self, *args, **kwargs):
         self.execute()
