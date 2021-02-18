@@ -1,4 +1,5 @@
 {
+  "$schema": "./config.schema.json",
   "version":
   {
     "major": 1,
