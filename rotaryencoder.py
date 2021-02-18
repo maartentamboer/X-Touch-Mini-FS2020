@@ -84,6 +84,8 @@ class RotaryEncoder:
         times = abs(64 - value)
         up_event = self._event_up
         down_event = self._event_down
+        if times > 10:
+            print("Either you're turning really fast, or encoder", self._encoder_index, "is not in relative 2 mode")
         if self._alternate_active:
             up_event = self._alternate_event_up
             down_event = self._alternate_event_down
