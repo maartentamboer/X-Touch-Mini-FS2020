@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/maartentamboer/X-Touch-Mini-FS2020/Configurations/config.schema.json",
+    "$id": "https://github.com/maartentamboer/X-Touch-Mini-FS2020/Configurations/blob/main/config.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "description": "Configuration for x-touch-mini-fs2020 to map SimConnect items to physical controls",
     "type": "object",
