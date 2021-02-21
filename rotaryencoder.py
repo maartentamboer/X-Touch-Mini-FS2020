@@ -28,14 +28,15 @@ class RotaryEncoder:
             self._on_layer = ActiveLayerIdentifier.B
 
         self._outport = outport
+        ActiveLayer().subscribe_to_layer_change(self._on_layer_change)
 
     def set_led_ring_value(self, value: int, blink=False):
-        if ActiveLayer().active_layer != self._on_layer:
-            return
         if blink:
             value += 13
         self._current_led_ring_value = value
-        self._update_led_ring()
+
+        if ActiveLayer().active_layer == self._on_layer:
+            self._update_led_ring()
 
     def set_led_ring_on_off(self, on: bool, blink=False):
         if ActiveLayer().active_layer != self._on_layer:
@@ -123,3 +124,7 @@ class RotaryEncoder:
     def _update_led_ring(self):
         msg = mido.Message('control_change', control=self._led_ring_value_cc, value=self._current_led_ring_value)
         self._outport.send(msg)
+
+    def _on_layer_change(self, newlayer):
+        if newlayer == self._on_layer:
+            self._update_led_ring()

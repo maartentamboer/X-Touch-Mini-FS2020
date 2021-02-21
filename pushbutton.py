@@ -14,6 +14,7 @@ class PushButton:
         self._event_press_short = None
         self._event_press_long = None
         self._time_of_note_on = time.time()
+        self._current_led_value = 0
 
         if self._button_index > 16:
             self._receive_data_note += 8
@@ -21,17 +22,18 @@ class PushButton:
             self._on_layer = ActiveLayerIdentifier.B
 
         self._outport = outport
+        ActiveLayer().subscribe_to_layer_change(self._on_layer_change)
 
     def set_led_on_off(self, on: bool, blink=False):
-        if ActiveLayer().active_layer != self._on_layer:
-            return
         value = 0
         if on:
             value = 1
             if blink:
                 value = 2
-        msg = mido.Message('note_on', note=self._led_control_note, velocity=value)
-        self._outport.send(msg)
+        self._current_led_value = value
+
+        if ActiveLayer().active_layer == self._on_layer:
+            self._update_led()
 
     def bind_led_to_simvar(self, simvar: str):
         self._simvar = simvar
@@ -75,3 +77,11 @@ class PushButton:
 
     def _update_active_layer(self):
         ActiveLayer().active_layer = self._on_layer
+
+    def _update_led(self):
+        msg = mido.Message('note_on', note=self._led_control_note, velocity=self._current_led_value)
+        self._outport.send(msg)
+
+    def _on_layer_change(self, newlayer):
+        if newlayer == self._on_layer:
+            self._update_led()
