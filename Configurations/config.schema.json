@@ -115,8 +115,7 @@
                             },
                             "simvar": {
                                 "$ref": "#/$defs/simvars"
-                            },
-                            "condition": {}
+                            }
                         }
                     },
                     {
@@ -127,6 +126,17 @@
                             },
                             "trigger_index": {
                                 "$ref": "#/$defs/button_index"
+                            },
+                            "simvar": {
+                                "$ref": "#/$defs/simvars"
+                            }
+                        }
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "trigger_type": {
+                                "const": "condition"
                             },
                             "simvar": {
                                 "$ref": "#/$defs/simvars"
