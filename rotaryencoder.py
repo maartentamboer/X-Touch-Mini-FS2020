@@ -23,7 +23,7 @@ class RotaryEncoder:
 
         if self._encoder_index > 8:
             self._receive_data_cc += 2
-            self._receive_data_note += 15
+            self._receive_data_note += 16
             self._led_ring_value_cc -= 8
             self._on_layer = ActiveLayerIdentifier.B
 
