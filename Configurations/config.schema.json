@@ -75,7 +75,7 @@
                         "$ref": "#/$defs/event"
                     },
                     "simvar_led": {
-                        "$ref": "#/$defs/simvars"
+                        "$ref": "#/$defs/combined_simvars"
                     }
                 }
             }
@@ -114,7 +114,7 @@
                                 "$ref": "#/$defs/encoder_index"
                             },
                             "simvar": {
-                                "$ref": "#/$defs/simvars"
+                                "$ref": "#/$defs/combined_simvars"
                             }
                         }
                     },
@@ -128,7 +128,7 @@
                                 "$ref": "#/$defs/button_index"
                             },
                             "simvar": {
-                                "$ref": "#/$defs/simvars"
+                                "$ref": "#/$defs/combined_simvars"
                             }
                         }
                     },
@@ -139,7 +139,7 @@
                                 "const": "condition"
                             },
                             "simvar": {
-                                "$ref": "#/$defs/simvars"
+                                "$ref": "#/$defs/combined_simvars"
                             },
                             "condition": {}
                         }
@@ -165,7 +165,7 @@
         "single_event": {
             "oneOf": [
                 {
-                    "$ref": "#/$defs/event_ids"
+                    "$ref": "#/$defs/combined_event_ids"
                 },
                 {
                     "const": "{alternate}"
@@ -194,7 +194,7 @@
                             "const": "manual"
                         },
                         "event": {
-                            "$ref": "#/$defs/event_ids"
+                            "$ref": "#/$defs/combined_event_ids"
                         },
                         "description": {
                             "type": "string"
@@ -202,6 +202,21 @@
                         "value": {}
                     }
                 }
+            ]
+        },
+        "additional_event_ids": {
+            "$comment": "Manually added event IDs",
+            "enum": [
+                "AP_VS_HOLD",
+                "FLIGHT_LEVEL_CHANGE",
+                "SPEED_SLOT_INDEX_SET",
+                "HEADING_SLOT_INDEX_SET",
+                "ALTITUDE_SLOT_INDEX_SET"
+            ]
+        },
+        "additional_simvars": {
+            "$comment": "Manually added simvars",
+            "enum": [
             ]
         },
         "event_ids": {
@@ -2382,6 +2397,18 @@
                 "STRUC_HEADING_HOLD_PID_CONSTS",
                 "EXTERNAL_SYSTEM_VALUE",
                 "SLING_HOIST_SWITCH"
+            ]
+        },
+        "combined_event_ids": {
+            "anyOf": [
+                { "$ref": "#/$defs/event_ids" },
+                { "$ref": "#/$defs/additional_event_ids" }
+            ]
+        },
+        "combined_simvars": {
+            "anyOf": [
+                { "$ref": "#/$defs/simvars" },
+                { "$ref": "#/$defs/additional_simvars" }
             ]
         },
         "encoder_index": {
