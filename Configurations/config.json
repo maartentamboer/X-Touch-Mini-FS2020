@@ -18,7 +18,7 @@
       "description": "When the APU is available",
       "simvar": "APU SWITCH",
       "type": "Bool",
-      "writable": true
+      "writable": false
     }
   ]
 }
