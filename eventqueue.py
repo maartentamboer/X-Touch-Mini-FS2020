@@ -19,6 +19,9 @@ class SingleEvent:
             self._event = ConditionalRunner(event_name)
         else:
             self._event = self._ae.find(event_name)  # auto find event
+            if self._event is None:
+                print(f"WARNING: Event {event_name}, was not found in simconnect list. Using a manual binding")
+                self._event = Event(event_name.encode(), self._ae.sm)
 
     def __call__(self, value=0):
         if self._event_type == "manual":
