@@ -84,7 +84,7 @@
       "event_up": "ELEV_TRIM_UP",
       "event_down": "ELEV_TRIM_DN"
     },
-      {
+    {
       "index": 8,
       "event_up": {
         "type": "condition",
