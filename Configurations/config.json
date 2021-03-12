@@ -11,5 +11,14 @@
     }
   ],
   "midi_input_device": "X-TOUCH MINI 0",
-  "midi_output_device": "X-TOUCH MINI 1"
+  "midi_output_device": "X-TOUCH MINI 1",
+  "additional_simvars": [
+    {
+      "name": "APU_SWITCH",
+      "description": "When the APU is available",
+      "simvar": "APU SWITCH",
+      "type": "Bool",
+      "writable": true
+    }
+  ]
 }

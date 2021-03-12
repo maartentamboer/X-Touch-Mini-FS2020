@@ -4,7 +4,7 @@ from eventqueue import EventQueue, SingleEvent
 from trigger import Trigger
 from conditionalrunner import ConditionalRunner
 from globalstorage import GlobalStorage
-
+from SimConnect import RequestList
 
 class ConfigFile:
     def __init__(self, aircraft):
@@ -25,6 +25,7 @@ class ConfigFile:
                 file = elem['file']
                 if aircraft_contains in str(self._aircraft):
                     config_file = file
+            self._configure_additional_simvars(base_data)
 
             config_file = 'Configurations/' + config_file  # Add folder prefix
             print("Loading config file:", config_file)
@@ -155,3 +156,15 @@ class ConfigFile:
                 trigger.bind_to_event(object_to_trigger.on_alternate)
 
             self._triggers.append(trigger)
+
+    def _configure_additional_simvars(self, data):
+        if 'additional_simvars' in data:
+            helper = RequestList.RequestHelper(self._aq.sm)
+            helper.list = {}
+            for elem in data['additional_simvars']:
+                writable = 'N'
+                if elem['writable']:
+                    writable = 'y'
+                simvar_elem = [elem['description'], elem['simvar'].encode(), elem['type'].encode(), writable]
+                helper.list[elem['name']] = simvar_elem
+            self._aq.list.append(helper)
