@@ -1,6 +1,8 @@
 from jinja2 import Environment, select_autoescape
 from globalstorage import GlobalStorage
 
+from SimConnect import Event
+
 env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
@@ -21,7 +23,8 @@ class ConditionalRunner:
         self._aq.set(name, value)
 
     def trigger_event(self, name: str, value):
-        self._ae.find(name)(int(value))
+        event = Event(name.encode(), self._ae.sm)
+        event(int(value))
 
     @staticmethod
     def trigger_encoder_alternate(index: int, value: bool):
