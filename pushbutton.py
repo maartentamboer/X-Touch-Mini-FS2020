@@ -18,7 +18,7 @@ class PushButton:
 
         if self._button_index > 16:
             self._receive_data_note += 8
-            self._led_control_note -= 15
+            self._led_control_note -= 16
             self._on_layer = ActiveLayerIdentifier.B
 
         self._outport = outport
