@@ -1,0 +1,61 @@
+site_name: X-Touch-Mini-FS2020
+
+site_url: https://maartentamboer.github.io/X-Touch-Mini-FS2020/
+site_author: Maarten Tamboer
+
+# Repository
+repo_name: maartentamboer/X-Touch-Mini-FS2020
+repo_url: https://github.com/maartentamboer/X-Touch-Mini-FS2020
+edit_uri: ""
+
+# Copyright
+copyright: Copyright &copy; 2021
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+  palette:
+    scheme: preference
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+# Plugins
+plugins:
+  - search
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/maartentamboer/X-Touch-Mini-FS2020
+
+# Extensions
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Getting started:
+    - General: getting-started/general.md
+    - Developing: getting-started/developing.md
+  - Configuration:
+    - General: configuration/general.md
+    - Buttons: configuration/buttons.md
+    - Encoders: configuration/encoders.md
+    - Fader: configuration/fader.md
+    - Triggers: configuration/triggers.md
+    - Advanced:
+      - Manual triggers: configuration/advanced/manual-triggers.md
+      - Conditional triggers: configuration/advanced/conditional-triggers.md
+  - Aircraft specific:
+    - FBW A320 NX:
+      - General: aircraft-details/a320/general.md
+      - Overhead: aircraft-details/a320/overhead.md
+      - FCU: aircraft-details/a320/fcu.md
+    - Working Title CJ4:
+      - General: aircraft-details/cj4/general.md
