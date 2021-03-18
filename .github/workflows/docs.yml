@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v1
-
+      - name: Rename requirements
+        run: mv requirements.txt ignore.txt
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
