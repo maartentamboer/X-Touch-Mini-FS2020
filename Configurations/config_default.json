@@ -18,9 +18,8 @@
       "event_up": "HEADING_BUG_INC",
       "event_down": "HEADING_BUG_DEC",
       "event_press": {
-        "type": "condition",
-        "event": [ "{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}",
-                     "{{ data.trigger_event('HEADING_BUG_SET', heading) }}"],
+        "type": "condition-file",
+        "event": "Functions/Generic/heading-bug-sync.jinja2",
         "description": "Set heading bug to current heading"
       }
     },
@@ -29,9 +28,8 @@
       "event_up": "VOR1_OBI_INC",
       "event_down": "VOR1_OBI_DEC",
       "event_press": {
-        "type": "condition",
-        "event": [ "{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}",
-                     "{{ data.trigger_event('VOR1_SET', heading) }}"],
+        "type": "condition-file",
+        "event": "Functions/Generic/vor-bug-sync.jinja2",
         "description": "Set CRS1 bug to current heading"
       }
     },
@@ -162,17 +160,9 @@
   ],
   "triggers": [
     {
-      "trigger_type": "condition",
+      "trigger_type": "condition-file",
       "simvar": "AUTOPILOT_VERTICAL_HOLD",
-      "condition": [
-        "{% if data.get_simvar_value('AUTOPILOT_VERTICAL_HOLD') == 1.0 %}",
-          "{{ data.trigger_encoder_alternate(5, True) }}",
-          "{{ data.set_encoder_led(5, True) }}",
-        "{% else %}",
-          "{{ data.trigger_encoder_alternate(5, False) }}",
-          "{{ data.set_encoder_led(5, False) }}",
-        "{% endif %}"
-      ]
+      "condition": "Functions/Generic/ap-spd-vs-encoder-switcher.jinja2"
     },
     {
       "trigger_type": "condition",

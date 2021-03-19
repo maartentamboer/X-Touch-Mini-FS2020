@@ -17,6 +17,8 @@ class SingleEvent:
             self._event = Event(event_name.encode(), self._ae.sm)  # manual event with forced value
         elif event_type == "condition":
             self._event = ConditionalRunner(event_name)
+        elif event_type == "condition-file":
+            self._event = ConditionalRunner("", event_name)
         else:
             self._event = self._ae.find(event_name)  # auto find event
             if self._event is None:

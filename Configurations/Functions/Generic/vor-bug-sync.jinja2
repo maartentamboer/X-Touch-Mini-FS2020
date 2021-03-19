@@ -1,0 +1,2 @@
+{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}
+{{ data.trigger_event('VOR1_SET', heading) }}

@@ -143,6 +143,17 @@
                             },
                             "condition": {}
                         }
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "const": "condition-file"
+                            },
+                            "condition": {
+                                "type": "string"
+                            }
+                        }
                     }
                 ]
             }
@@ -185,6 +196,21 @@
                         "description": {
                             "type": "string"
                         }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "condition-file"
+                        },
+                        "event": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "value": {}
                     }
                 },
                 {

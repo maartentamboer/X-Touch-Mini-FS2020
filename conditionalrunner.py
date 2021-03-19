@@ -9,8 +9,11 @@ env = Environment(
 
 
 class ConditionalRunner:
-    def __init__(self, template):
+    def __init__(self, template, file=None):
         self._template_str = "".join(template)
+        if file:
+            with open(f"Configurations/{file}", 'r') as file:
+                self._template_str = file.read()
         self._template = env.from_string(self._template_str)
         self._ae = GlobalStorage().aircraft_events
         self._aq = GlobalStorage().aircraft_requests
