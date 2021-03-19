@@ -1,0 +1,4 @@
+{# Set the heading bug to the current flown heading #}
+{# HEADING_INDICATOR returns in radians but HEADING_BUG_SET needs it in degrees  #}
+{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}
+{{ data.trigger_event('HEADING_BUG_SET', heading) }}

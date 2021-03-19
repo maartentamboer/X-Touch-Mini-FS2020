@@ -1,0 +1,21 @@
+{% if data.get_global_variable('MFD_RANGE') == 320 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_160', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 160) }}
+{% elif data.get_global_variable('MFD_RANGE') == 160 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_80', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 80) }}
+{% elif data.get_global_variable('MFD_RANGE') == 80 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_40', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 40) }}
+{% elif data.get_global_variable('MFD_RANGE') == 40 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_20', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 20) }}
+{% elif data.get_global_variable('MFD_RANGE') == 20 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_10', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 10) }}
+{% elif data.get_global_variable('MFD_RANGE') == 10 %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_10', 1) }}
+{% else %}
+    {{ data.trigger_event('MobiFlight.A320_neo_MFD_Range_1_10', 1) }}
+    {{ data.set_global_variable('MFD_RANGE', 10) }}
+{% endif %}

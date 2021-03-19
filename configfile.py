@@ -143,17 +143,17 @@ class ConfigFile:
             trigger = Trigger()
             trigger.bind_to_simvar(simvar)
 
-            if condition:
-                trigger.bind_to_event(ConditionalRunner(condition))
-            else:
-                if trigger_type == "encoder":
-                    object_to_trigger = self._encoders[trigger_index - 1]
-                elif trigger_type == "button":
-                    object_to_trigger = self._buttons[trigger_index - 1]
-                else:
-                    raise ValueError(f"Unknown trigger type: {trigger_type}")
-
+            if trigger_type == "encoder":
+                object_to_trigger = self._encoders[trigger_index - 1]
                 trigger.bind_to_event(object_to_trigger.on_alternate)
+            elif trigger_type == "button":
+                object_to_trigger = self._buttons[trigger_index - 1]
+            elif trigger_type == "condition":
+                trigger.bind_to_event(ConditionalRunner(condition))
+            elif trigger_type == "condition-file":
+                trigger.bind_to_event(ConditionalRunner("", condition))
+            else:
+                raise ValueError(f"Unknown trigger type: {trigger_type}")
 
             self._triggers.append(trigger)
 
