@@ -1,4 +1,6 @@
 # Developing
+!!! Info 
+    If you just want to use or change the config files proceed to the next section.
 To develop on the project, perform the following steps.
 
 ## Prerequisites

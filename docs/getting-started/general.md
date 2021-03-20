@@ -22,4 +22,4 @@ This can be done in the X-Touch editor software from Behringer than can be downl
 Flight Simulator 2020 must be running before you start this application. Once you're in the main menu double click `X-Touch-Mini-FS2020.exe` to start the application.
 
 ## Changing the configuration
-See the [Configuration guide](../../configuration/general) for more information
+See the [Configuration guide](../../configuration/configuration) for more information

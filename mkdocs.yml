@@ -41,14 +41,21 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 
 nav:
   - Home: index.md
   - Getting started:
     - Installation & Configuration: getting-started/general.md
+    - How does it work: getting-started/how.md
     - Developing: getting-started/developing.md
   - Configuration:
-    - General: configuration/general.md
+    - Configuration: configuration/configuration.md
+    - Global: configuration/global.md
+    - Aircraft specific: configuration/aircraft.md
     - Buttons: configuration/buttons.md
     - Encoders: configuration/encoders.md
     - Fader: configuration/fader.md
