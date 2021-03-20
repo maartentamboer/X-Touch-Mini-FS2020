@@ -1,6 +1,6 @@
 site_name: X-Touch-Mini-FS2020
 
-site_url: https://maartentamboer.github.io/X-Touch-Mini-FS2020/
+site_url: https://dev-tty.nl/X-Touch-Mini-FS2020/
 site_author: Maarten Tamboer
 
 # Repository
@@ -37,16 +37,28 @@ extra:
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - abbr
+
 
 nav:
   - Home: index.md
   - Getting started:
-    - General: getting-started/general.md
+    - Installation & Configuration: getting-started/general.md
+    - How does it work: getting-started/how.md
     - Developing: getting-started/developing.md
   - Configuration:
-    - General: configuration/general.md
-    - Buttons: configuration/buttons.md
+    - Configuration: configuration/configuration.md
+    - Global: configuration/global.md
+    - Aircraft specific: configuration/aircraft.md
     - Encoders: configuration/encoders.md
+    - Buttons: configuration/buttons.md
     - Fader: configuration/fader.md
     - Triggers: configuration/triggers.md
     - Advanced:
