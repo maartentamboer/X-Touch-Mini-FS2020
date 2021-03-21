@@ -45,6 +45,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - abbr
+  - pymdownx.inlinehilite
 
 
 nav:
@@ -62,8 +63,9 @@ nav:
     - Fader: configuration/fader.md
     - Triggers: configuration/triggers.md
     - Advanced:
-      - Manual triggers: configuration/advanced/manual-triggers.md
-      - Conditional triggers: configuration/advanced/conditional-triggers.md
+      - Multiple events: configuration/advanced/multi-events.md
+      - Manual events: configuration/advanced/manual-events.md
+      - Conditional events: configuration/advanced/conditional-events.md
   - Aircraft specific:
     - FBW A320 NX:
       - General: aircraft-details/a320/general.md
