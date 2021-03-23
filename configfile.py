@@ -5,6 +5,7 @@ from trigger import Trigger
 from conditionalrunner import ConditionalRunner
 from globalstorage import GlobalStorage
 from SimConnect import RequestList
+from initialization import Initialization
 
 class ConfigFile:
     def __init__(self, aircraft):
@@ -35,6 +36,7 @@ class ConfigFile:
                 self._configure_buttons(data['buttons'])
                 self._configure_faders(data['faders'])
                 self._configure_triggers(data['triggers'])
+                Initialization(data.get('initialization', None))
 
     @staticmethod
     def get_midi_input() -> str:
