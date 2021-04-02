@@ -12,6 +12,7 @@ class ActiveLayer(metaclass=Singleton):
     def __init__(self):
         self._active_layer = ActiveLayerIdentifier.A
         self._layer_change_events = []
+        self._activity_events = []
 
     @property
     def active_layer(self):
@@ -19,6 +20,8 @@ class ActiveLayer(metaclass=Singleton):
 
     @active_layer.setter
     def active_layer(self, value: ActiveLayerIdentifier):
+        for x in self._activity_events:
+            x(value)
         if value != self._active_layer:
             print("Layer Change to", value)
             for x in self._layer_change_events:
@@ -27,3 +30,6 @@ class ActiveLayer(metaclass=Singleton):
 
     def subscribe_to_layer_change(self, callback):
         self._layer_change_events.append(callback)
+
+    def subscribe_to_activity(self, callback):
+        self._activity_events.append(callback)

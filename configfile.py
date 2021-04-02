@@ -27,6 +27,8 @@ class ConfigFile:
                 if aircraft_contains in str(self._aircraft):
                     config_file = file
             self._configure_additional_simvars(base_data)
+            if 'automatic_layer_revert' in base_data:
+                GlobalStorage().active_layer_changer.enable_layer_revert_timer(base_data['automatic_layer_revert'])
 
             config_file = 'Configurations/' + config_file  # Add folder prefix
             print("Loading config file:", config_file)

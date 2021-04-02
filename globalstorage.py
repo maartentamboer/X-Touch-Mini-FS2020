@@ -7,6 +7,7 @@ from rotaryencoder import RotaryEncoder
 from pushbutton import PushButton
 from trigger import Trigger
 from fader import Fader
+from activelayerchanger import ActiveLayerChanger
 
 
 class GlobalStorage(metaclass=Singleton):
@@ -18,12 +19,14 @@ class GlobalStorage(metaclass=Singleton):
         self._ae = None
         self._aq = None
         self._global_variables = {}
+        self._active_layer_changer = None  # type: ActiveLayerChanger
 
     def clear(self):
         self._buttons = []
         self._encoders = []
         self._faders = []
         self._triggers = []
+        self._active_layer_changer = None
 
     def add_encoder(self, encoder: RotaryEncoder):
         self._encoders.append(encoder)
@@ -48,6 +51,9 @@ class GlobalStorage(metaclass=Singleton):
 
     def get_global_variable(self, key: str):
         return self._global_variables.get(key, None)
+
+    def set_active_layer_changer(self, ac: ActiveLayerChanger):
+        self._active_layer_changer = ac
 
     @property
     def encoders(self) -> List[RotaryEncoder]:
@@ -76,3 +82,7 @@ class GlobalStorage(metaclass=Singleton):
     @property
     def aircraft_requests(self) -> AircraftRequests:
         return self._aq
+
+    @property
+    def active_layer_changer(self) -> ActiveLayerChanger:
+        return self._active_layer_changer
