@@ -173,5 +173,13 @@
       "trigger_type": "encoder",
       "trigger_index": 5
     }
-  ]
+  ],
+  "initialization": {
+    "global_variables": [
+      {
+        "name": "MFD_RANGE",
+        "value": 10
+      }
+    ]
+  }
 }
