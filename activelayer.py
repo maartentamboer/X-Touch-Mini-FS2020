@@ -33,3 +33,7 @@ class ActiveLayer(metaclass=Singleton):
 
     def subscribe_to_activity(self, callback):
         self._activity_events.append(callback)
+
+    def clear_all_subscriptions(self):
+        self._layer_change_events.clear()
+        self._activity_events.clear()

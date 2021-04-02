@@ -10,6 +10,7 @@ from configfile import ConfigFile
 from globalstorage import GlobalStorage
 from mocksimconnect import MockAircraftEvents, MockAircraftRequests
 from activelayerchanger import ActiveLayerChanger
+from activelayer import ActiveLayer
 
 
 def main_app(offline: bool):
@@ -28,6 +29,8 @@ def main_app(offline: bool):
         ae = MockAircraftEvents()
         global_storage.set_aircraft_events(MockAircraftEvents())
         global_storage.set_aircraft_requests(MockAircraftRequests())
+
+    ActiveLayer().clear_all_subscriptions()
 
     print('Midi input devices:', mido.get_input_names())
     print('Midi output devices:', mido.get_output_names())
