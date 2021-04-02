@@ -9,6 +9,8 @@ from fader import Fader
 from configfile import ConfigFile
 from globalstorage import GlobalStorage
 from mocksimconnect import MockAircraftEvents, MockAircraftRequests
+from activelayerchanger import ActiveLayerChanger
+from activelayer import ActiveLayer
 
 
 def main_app(offline: bool):
@@ -23,8 +25,12 @@ def main_app(offline: bool):
         global_storage.set_aircraft_events(ae)
         global_storage.set_aircraft_requests(aq)
     else:
+        aq = MockAircraftRequests()
+        ae = MockAircraftEvents()
         global_storage.set_aircraft_events(MockAircraftEvents())
         global_storage.set_aircraft_requests(MockAircraftRequests())
+
+    ActiveLayer().clear_all_subscriptions()
 
     print('Midi input devices:', mido.get_input_names())
     print('Midi output devices:', mido.get_output_names())
@@ -65,6 +71,8 @@ def main_app(offline: bool):
     for f in range(1, 3):
         fader = Fader(f)
         global_storage.add_fader(fader)
+
+    GlobalStorage().set_active_layer_changer(ActiveLayerChanger(outport))
 
     c = ConfigFile(aircraft)
     c.configure()

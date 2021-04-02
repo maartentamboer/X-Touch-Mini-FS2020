@@ -20,5 +20,6 @@
       "type": "Bool",
       "writable": false
     }
-  ]
+  ],
+  "automatic_layer_revert": 3.0
 }
