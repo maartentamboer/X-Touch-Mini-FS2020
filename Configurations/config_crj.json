@@ -134,9 +134,9 @@
   "faders": [
     {
       "index": 1,
-      "event_change": "SPOILERS_SET",
-      "min_value": 0,
-      "max_value": 16383
+      "event_change": "AXIS_SPOILER_SET",
+      "min_value": -16384,
+      "max_value": 16384
     }
   ],
   "triggers": [

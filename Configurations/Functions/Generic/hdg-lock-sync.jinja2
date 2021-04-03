@@ -1,0 +1,2 @@
+{% set heading = (data.get_simvar_value('AUTOPILOT_HEADING_LOCK_DIR') / 27.0) | round %}
+{{ data.set_encoder_led_value(1, heading) }}

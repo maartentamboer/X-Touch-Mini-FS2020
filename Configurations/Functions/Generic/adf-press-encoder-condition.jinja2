@@ -1,0 +1,13 @@
+{% if data.get_global_variable('ADF_SELECTION') == 1 %}
+  {{ data.print('ADF_SELECTION 10') }}
+  {{ data.set_global_variable('ADF_SELECTION', 10) }}
+  {{ data.set_encoder_led_value(7, 7) }}
+{% elif data.get_global_variable('ADF_SELECTION') == 10 %}
+  {{ data.print('ADF_SELECTION 100') }}
+  {{ data.set_global_variable('ADF_SELECTION', 100) }}
+  {{ data.set_encoder_led_value(7, 13) }}
+{% else %}
+  {{ data.print('ADF_SELECTION 1') }}
+  {{ data.set_global_variable('ADF_SELECTION', 1) }}
+  {{ data.set_encoder_led_value(7, 1) }}
+{% endif %}

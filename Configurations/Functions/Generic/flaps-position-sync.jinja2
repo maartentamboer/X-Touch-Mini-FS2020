@@ -1,0 +1,14 @@
+{% set flaps_position = data.get_simvar_value('FLAPS_HANDLE_INDEX') %}
+{% set gear_down = data.get_simvar_value('GEAR_POSITION') %}
+{% if flaps_position == 0 %}
+	{{ data.set_button_led(8, 1) }}
+	{{ data.set_button_led(16, 0) }}
+{% else %}
+	{% if gear_down == 1 %}
+		{{ data.set_button_led(8, 0) }}
+    	{{ data.set_button_led(16, 1, blink=False) }}
+  	{% else %}
+    	{{ data.set_button_led(8, 0) }}
+    	{{ data.set_button_led(16, 1, blink=True) }}
+  {% endif %}
+{% endif %}

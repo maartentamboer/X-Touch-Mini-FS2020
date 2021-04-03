@@ -54,10 +54,18 @@
       "event_long_press": "NAV1_RADIO_SWAP"
     },
     {
-      "index": 7
+      "index": 7,
+      "event_up": { "event": "MobiFlight.Generic_Upr_MENU_ADV_INC", "type": "manual", "value": 1 },
+      "event_down": { "event": "MobiFlight.Generic_Upr_MENU_ADV_DEC", "type": "manual", "value": 1 },
+      "alternate_event_up": { "event": "MobiFlight.Generic_Upr_Data_INC", "type": "manual", "value": 1 },
+      "alternate_event_down": { "event": "MobiFlight.Generic_Upr_Data_DEC", "type": "manual", "value": 1 },
+      "event_short_press": "{alternate}",
+      "event_long_press": { "event": "MobiFlight.Generic_Upr_Data_PUSH", "type": "manual", "value": 1 }
     },
     {
-      "index": 8
+      "index": 8,
+      "event_up": { "event": "MobiFlight.Generic_Upr_RANGE_INC", "type": "manual", "value": 1 },
+      "event_down": { "event": "MobiFlight.Generic_Upr_RANGE_DEC", "type": "manual", "value": 1 }
     }
   ],
   "buttons": [
@@ -68,7 +76,7 @@
     },
     {
       "index": 2,
-      "event_press": "AP_HDG_HOLD",
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_HDG_PRESSED", "type": "manual", "value": 1 },
       "simvar_led": "AUTOPILOT_HEADING_LOCK"
     },
     {
@@ -78,19 +86,21 @@
     },
     {
       "index": 4,
-      "event_press": "AP_VS_HOLD",
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_VS_PRESSED", "type": "manual", "value": 1 },
       "simvar_led": "AUTOPILOT_VERTICAL_HOLD"
     },
     {
       "index": 5,
-      "event_press": "AP_APR_HOLD",
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_APPR_PRESSED", "type": "manual", "value": 1 },
       "simvar_led": "AUTOPILOT_APPROACH_HOLD"
     },
     {
-      "index": 6
+      "index": 6,
+      "event_press": { "event": "MobiFlight.Generic_Upr_Push_FRMT", "type": "manual", "value": 1 }
     },
     {
-      "index": 7
+      "index": 7,
+      "event_press": { "event": "MobiFlight.Generic_Upr_Push_TERR_WX", "type": "manual", "value": 1 }
     },
     {
       "index": 8,
@@ -103,15 +113,17 @@
     },
     {
       "index": 10,
-      "event_press": "AP_NAV1_HOLD",
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_NAV_PRESSED", "type": "manual", "value": 1 },
       "simvar_led": "AUTOPILOT_NAV1_LOCK"
     },
     {
-      "index": 11
+      "index": 11,
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_VNAV_PRESSED", "type": "manual", "value": 1 },
+      "simvar_led": "AUTOPILOT_VERTICAL_HOLD"
     },
     {
       "index": 12,
-      "event_press": "FLIGHT_LEVEL_CHANGE",
+      "event_press": { "event": "MobiFlight.WT_CJ4_AP_FLC_PRESSED", "type": "manual", "value": 1 },
       "simvar_led": "AUTOPILOT_FLIGHT_LEVEL_CHANGE"
     },
     {
@@ -178,7 +190,7 @@
     {
       "trigger_type": "condition-file",
       "simvar": "ELECTRICAL_BATTERY_LOAD",
-      "condition": "Functions/Generic/batt-load-sync.jinja2"
+      "condition": "Functions/CJ4/batt-load-sync.jinja2"
     }
   ]
 }
