@@ -1,6 +1,7 @@
+{% set button_index = get_global_variable('GEAR_BUT_IDX') %}
 {% set gear_down = data.get_simvar_value('GEAR_POSITION') %}
 {% if gear_down != 1 and gear_down != 0 %}
-	{{ data.set_button_led(15, 1, blink=True) }}
+	{{ data.set_button_led(button_index, 1, blink=True) }}
 {% else %}
-	{{ data.set_button_led(15, gear_down) }}
+	{{ data.set_button_led(button_index, gear_down) }}
 {% endif %}

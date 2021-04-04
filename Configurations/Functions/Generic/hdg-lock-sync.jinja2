@@ -1,2 +1,3 @@
+{% set encoder_index = get_global_variable('HEADING_ENC_IDX') %}
 {% set heading = (data.get_simvar_value('AUTOPILOT_HEADING_LOCK_DIR') / 27.0) | round %}
-{{ data.set_encoder_led_value(1, heading) }}
+{{ data.set_encoder_led_value(encoder_index, heading) }}

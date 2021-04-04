@@ -1,7 +1,8 @@
+{% set encoder_index = get_global_variable('AP_SPD_ENC_IDX') %}
 {% if data.get_simvar_value('AUTOPILOT_VERTICAL_HOLD') == 1.0 %}
-    {{ data.trigger_encoder_alternate(4, True) }}
-    {{ data.set_encoder_led(4, True) }}
+    {{ data.trigger_encoder_alternate(encoder_index, True) }}
+    {{ data.set_encoder_led(encoder_index, True) }}
 {% else %}
-    {{ data.trigger_encoder_alternate(4, False) }}
-    {{ data.set_encoder_led(4, False) }}
+    {{ data.trigger_encoder_alternate(encoder_index, False) }}
+    {{ data.set_encoder_led(encoder_index, False) }}
 {% endif %}

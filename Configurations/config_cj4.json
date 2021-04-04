@@ -192,5 +192,37 @@
       "simvar": "ELECTRICAL_BATTERY_LOAD",
       "condition": "Functions/CJ4/batt-load-sync.jinja2"
     }
-  ]
+  ],
+  "initialization": {
+    "global_variables": [
+      {
+        "name": "HEADING_ENC_IDX",
+        "value": 1
+      },
+      {
+        "name": "AP_SPD_ENC_IDX",
+        "value": 4
+      },
+      {
+        "name": "FLAPS_UP_BUT_IDX",
+        "value": 8
+      },
+      {
+        "name": "YD_BUT_IDX",
+        "value": 13
+      },
+      {
+        "name": "BATT_BUT_IDX",
+        "value": 14
+      },
+      {
+        "name": "GEAR_BUT_IDX",
+        "value": 15
+      },
+      {
+        "name": "FLAPS_DN_BUT_IDX",
+        "value": 16
+      }
+    ]
+  }
 }
