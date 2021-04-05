@@ -1,0 +1,8 @@
+{% set button_index = data.get_global_variable('YD_BUT_IDX') %}
+{% set yaw_damper_active = data.get_simvar_value('AUTOPILOT_YAW_DAMPER') %}
+{% set gear_down = data.get_simvar_value('GEAR_POSITION') %}
+{% if yaw_damper_active == 1 and gear_down > 0 %}
+	{{ data.set_button_led(button_index, 1, blink=True) }}
+{% else %}
+	{{ data.set_button_led(button_index, yaw_damper_active) }}
+{% endif %}

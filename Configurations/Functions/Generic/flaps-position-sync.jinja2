@@ -1,0 +1,16 @@
+{% set flaps_up_button_index = data.get_global_variable('FLAPS_UP_BUT_IDX') %}
+{% set flaps_down_button_index = data.get_global_variable('FLAPS_DN_BUT_IDX') %}
+{% set flaps_position = data.get_simvar_value('FLAPS_HANDLE_INDEX') %}
+{% set gear_down = data.get_simvar_value('GEAR_POSITION') %}
+{% if flaps_position == 0 %}
+	{{ data.set_button_led(flaps_up_button_index, 1) }}
+	{{ data.set_button_led(flaps_down_button_index, 0) }}
+{% else %}
+	{% if gear_down == 1 %}
+		{{ data.set_button_led(flaps_up_button_index, 0) }}
+    	{{ data.set_button_led(flaps_down_button_index, 1, blink=False) }}
+  	{% else %}
+    	{{ data.set_button_led(flaps_up_button_index, 0) }}
+    	{{ data.set_button_led(flaps_down_button_index, 1, blink=True) }}
+  {% endif %}
+{% endif %}

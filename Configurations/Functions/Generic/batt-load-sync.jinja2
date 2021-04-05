@@ -1,0 +1,4 @@
+{% set button_index = data.get_global_variable('BATT_BUT_IDX') %}
+{% set batt_load = data.get_simvar_value('ELECTRICAL_BATTERY_LOAD') %}
+{% set battery_on = data.get_simvar_value('ELECTRICAL_MASTER_BATTERY') %}
+{{ data.set_button_led(button_index, battery_on, blink=(batt_load < 0)) }}

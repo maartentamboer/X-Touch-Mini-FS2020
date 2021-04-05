@@ -1,0 +1,7 @@
+{% if data.get_global_variable('ADF_SELECTION') == 100 %}
+  {{ data.trigger_event('ADF_100_DEC', 1) }}
+{% elif data.get_global_variable('ADF_SELECTION') == 10 %}
+  {{ data.trigger_event('ADF_10_DEC', 1) }}
+{% else %}
+  {{ data.trigger_event('ADF_1_DEC', 1) }}
+{% endif %}

@@ -2,12 +2,16 @@
   "default": "config_default.json",
   "aircraft": [
     {
-      "aircraft_contains": "TBM 930",
-      "file": "config_default.json"
-    },
-    {
       "aircraft_contains": "A320",
       "file": "config_a320.json"
+    },
+    {
+      "aircraft_contains": "Cessna CJ4 Citation",
+      "file": "config_cj4.json"
+    },
+    {
+      "aircraft_contains": "CRJ",
+      "file": "config_crj.json"
     }
   ],
   "midi_input_device": "X-TOUCH MINI 0",
@@ -19,6 +23,13 @@
       "simvar": "APU SWITCH",
       "type": "Bool",
       "writable": false
+    },
+    {
+      "name": "GEAR_POSITION",
+      "description": "Gear position",
+      "simvar": "GEAR POSITION",
+      "type": "Enum",
+      "writable": true
     }
   ],
   "automatic_layer_revert": 3.0
