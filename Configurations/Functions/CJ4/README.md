@@ -4,6 +4,9 @@
 
 ## Setup
 
+### prerequisites
+- [MobiFlight](https://www.mobiflight.com/) mod installed
+
 ### encoders (from left to right, starting with index `1`)
 
 #### suffixes
