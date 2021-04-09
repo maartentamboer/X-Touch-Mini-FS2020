@@ -4,6 +4,10 @@
 
 ## Setup
 
+### prerequisites
+- [MobiFlight](https://www.mobiflight.com/) mod installed
+- [events.user.txt](events.user.txt) copied to `Community\mobiflight-event-module\modules\`
+
 ### encoders (from left to right, starting with index `1`)
 
 #### suffixes
@@ -76,4 +80,4 @@
 
 ## Known issues
 
-1. Work In Progress
+1. LNAV and VNAV buttons are not lighting up
