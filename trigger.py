@@ -15,6 +15,10 @@ class Trigger:
     def bound_simvar(self):
         return self._simvar
 
+    @property
+    def bound_mobiflightsimvar(self):
+        return None
+
     def on_simvar_data(self, data):
         # Check if data has changed this prevents unnecessary execution of events
         if data != self._previous_data:

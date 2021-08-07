@@ -114,6 +114,7 @@ class ConfigFile:
             event_short_press = elem.get('event_short_press')
             event_long_press = elem.get('event_long_press')
             simvar_led = elem.get('simvar_led')
+            mobiflightsimvar_led = elem.get('mobiflightsimvar_led')
             button = self._buttons[index - 1]
 
             if event_press:
@@ -124,6 +125,8 @@ class ConfigFile:
                 button.bind_long_press(self._create_binding(button, event_long_press))
             if simvar_led:
                 button.bind_led_to_simvar(simvar_led)
+            if mobiflightsimvar_led:
+                button.bind_led_to_mobiflightsimvar(mobiflightsimvar_led)
 
     def _configure_faders(self, data):
         for elem in data:

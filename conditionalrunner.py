@@ -2,6 +2,8 @@ from jinja2 import Environment, select_autoescape
 from globalstorage import GlobalStorage
 
 from SimConnect import Event
+from SimConnectMobiflight.simconnect_mobiflight import SimConnectMobiFlight
+from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
 
 env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
@@ -20,6 +22,12 @@ class ConditionalRunner:
 
     def get_simvar_value(self, name: str):
         value = self._aq.get(name)
+        return value
+
+    def get_mobiflight_value(self, name: str):
+        #Add MobiFlight
+        value = GlobalStorage().get_mobiflight_variable(name)
+        #print(name,value)
         return value
 
     def set_simvar_value(self, name: str, value):

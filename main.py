@@ -3,6 +3,8 @@ import time
 import mido
 
 from SimConnect import SimConnect, AircraftEvents, AircraftRequests
+from SimConnectMobiflight.simconnect_mobiflight import SimConnectMobiFlight
+from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
 from rotaryencoder import RotaryEncoder
 from pushbutton import PushButton
 from fader import Fader
@@ -16,14 +18,20 @@ from activelayer import ActiveLayer
 def main_app(offline: bool):
     global_storage = GlobalStorage()
     sm = None
+    vr = None
     aq = None
     ae = None
     if not offline:
-        sm = SimConnect()
+        sm = SimConnectMobiFlight()
+        vr = MobiFlightVariableRequests(sm)
+        vr.clear_sim_variables()
         aq = AircraftRequests(sm, _time=200)
         ae = AircraftEvents(sm)
         global_storage.set_aircraft_events(ae)
         global_storage.set_aircraft_requests(aq)
+        #Add MobiFlight
+        global_storage.set_mobiflightvariablerequests(vr)
+
     else:
         aq = MockAircraftRequests()
         ae = MockAircraftEvents()
@@ -93,6 +101,10 @@ def main_app(offline: bool):
             if obj.bound_simvar and aq:
                 sv = aq.get(obj.bound_simvar)
                 obj.on_simvar_data(sv)
+
+            if obj.bound_mobiflightsimvar and vr:
+                sv = vr.get(obj.bound_mobiflightsimvar)
+                obj.on_mobiflightsimvar_data(sv)
 
         current_aircraft = aq.get('TITLE')
         if current_aircraft and aircraft != current_aircraft:
