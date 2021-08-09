@@ -1,6 +1,7 @@
 from typing import List, Any
 
 from SimConnect import AircraftEvents, AircraftRequests
+from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
 
 from singleton import Singleton
 from rotaryencoder import RotaryEncoder
@@ -18,6 +19,7 @@ class GlobalStorage(metaclass=Singleton):
         self._triggers = []  # type: List[Trigger]
         self._ae = None
         self._aq = None
+        self._vr = None
         self._global_variables = {}
         self._active_layer_changer = None  # type: ActiveLayerChanger
 
@@ -45,6 +47,13 @@ class GlobalStorage(metaclass=Singleton):
 
     def set_aircraft_requests(self, aq: AircraftRequests):
         self._aq = aq
+        
+          #Add MobiFlight
+    def get_mobiflight_variable(self, key: str):
+        return self._vr.get(key)
+
+    def set_mobiflightvariablerequests(self, vr: MobiFlightVariableRequests):
+        self._vr = vr
 
     def set_global_variable(self, key: str, value):
         self._global_variables[key] = value

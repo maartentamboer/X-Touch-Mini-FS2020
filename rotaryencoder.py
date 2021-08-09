@@ -78,6 +78,11 @@ class RotaryEncoder:
     def bound_simvar(self):
         return None
 
+    @property
+    def bound_mobiflightsimvar(self):
+        return None
+
+
     def on_cc_data(self, value):
         print(f"on_cc_data: {self._encoder_index}: {value}")
         self._update_led_ring()
