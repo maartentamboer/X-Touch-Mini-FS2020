@@ -22,6 +22,11 @@ class Fader:
         self._min_value = min_value
         self._max_value = max_value
 
+    def reset_configuration(self):
+        self._event = None
+        self._min_value = 0
+        self._max_value = 0
+
     def on_cc_data(self, value):
         print(f"on_cc_data: {self._fader_index}: {value}")
         self._update_active_layer()

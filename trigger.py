@@ -11,6 +11,11 @@ class Trigger:
     def bind_to_event(self, event):
         self._event = event
 
+    def reset_configuration(self):
+        self._simvar = None
+        self._event = None
+        self._previous_data = None
+
     @property
     def bound_simvar(self):
         return self._simvar
