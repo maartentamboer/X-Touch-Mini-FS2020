@@ -1,7 +1,7 @@
 from typing import List, Any
 
 from SimConnect import AircraftEvents, AircraftRequests
-from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
+from MSFSPythonSimConnectMobiFlightExtension.src.mobiflight_variable_requests import MobiFlightVariableRequests
 
 from singleton import Singleton
 from rotaryencoder import RotaryEncoder

@@ -1,8 +1,8 @@
 import time
 import logging
 from SimConnect import AircraftEvents, AircraftRequests
-from SimConnectMobiflight.simconnect_mobiflight import SimConnectMobiFlight
-from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
+from MSFSPythonSimConnectMobiFlightExtension.src.simconnect_mobiflight import SimConnectMobiFlight
+from MSFSPythonSimConnectMobiFlightExtension.src.mobiflight_variable_requests import MobiFlightVariableRequests
 from rotaryencoder import RotaryEncoder
 from pushbutton import PushButton
 from fader import Fader

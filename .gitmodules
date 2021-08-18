@@ -1,0 +1,3 @@
+[submodule "MSFSPythonSimConnectMobiFlightExtension"]
+	path = MSFSPythonSimConnectMobiFlightExtension
+	url = https://github.com/Koseng/MSFSPythonSimConnectMobiFlightExtension.git
