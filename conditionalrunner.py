@@ -2,8 +2,8 @@ from jinja2 import Environment, select_autoescape
 from globalstorage import GlobalStorage
 
 from SimConnect import Event
-from SimConnectMobiflight.simconnect_mobiflight import SimConnectMobiFlight
-from SimConnectMobiflight.mobiflight_variable_requests import MobiFlightVariableRequests
+from MSFSPythonSimConnectMobiFlightExtension.src.simconnect_mobiflight import SimConnectMobiFlight
+from MSFSPythonSimConnectMobiFlightExtension.src.mobiflight_variable_requests import MobiFlightVariableRequests
 
 env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
