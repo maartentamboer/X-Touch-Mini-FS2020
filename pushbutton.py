@@ -52,6 +52,14 @@ class PushButton:
     def bind_long_press(self, event):
         self._event_press_long = event
 
+    def reset_configuration(self):
+        self._simvar = None
+        self._mobiflightsimvar = None
+        self._event_press = None
+        self._event_press_short = None
+        self._event_press_long = None
+        self._current_led_value = 0
+
     @property
     def button_note(self):
         return self._receive_data_note

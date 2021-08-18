@@ -48,11 +48,11 @@ class GlobalStorage(metaclass=Singleton):
     def set_aircraft_requests(self, aq: AircraftRequests):
         self._aq = aq
         
-          #Add MobiFlight
+    #Add MobiFlight
     def get_mobiflight_variable(self, key: str):
         return self._vr.get(key)
 
-    def set_mobiflightvariablerequests(self, vr: MobiFlightVariableRequests):
+    def set_mobiflight_variable_requests(self, vr: MobiFlightVariableRequests):
         self._vr = vr
 
     def set_global_variable(self, key: str, value):
@@ -91,6 +91,10 @@ class GlobalStorage(metaclass=Singleton):
     @property
     def aircraft_requests(self) -> AircraftRequests:
         return self._aq
+
+    @property
+    def mobiflight_variable_requests(self) -> MobiFlightVariableRequests:
+        return self._vr
 
     @property
     def active_layer_changer(self) -> ActiveLayerChanger:

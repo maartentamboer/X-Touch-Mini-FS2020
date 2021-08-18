@@ -81,6 +81,8 @@ class ConfigFile:
         return SingleEvent(event_name, event_type, event_value)
 
     def _configure_encoders(self, data):
+        for enc in self._encoders:
+            enc.reset_configuration()
         for elem in data:
             # print(elem)
             index = elem['index']
@@ -107,6 +109,8 @@ class ConfigFile:
                 encoder.bind_long_press(self._create_binding(encoder, event_long_press))
 
     def _configure_buttons(self, data):
+        for btn in self._buttons:
+            btn.reset_configuration()
         for elem in data:
             # print(elem)
             index = elem['index']
@@ -129,6 +133,8 @@ class ConfigFile:
                 button.bind_led_to_mobiflightsimvar(mobiflightsimvar_led)
 
     def _configure_faders(self, data):
+        for fad in self._faders:
+            fad.reset_configuration()
         for elem in data:
             # print(elem)
             index = elem['index']
@@ -140,6 +146,9 @@ class ConfigFile:
             fader.bind_to_event(self._create_binding(fader, event_change), min_value, max_value)
 
     def _configure_triggers(self, data):
+        for trig in self._triggers:
+            trig.reset_configuration()
+        self._triggers.clear()
         for elem in data:
             # print(elem)
             simvar = elem.get('simvar')
@@ -174,4 +183,5 @@ class ConfigFile:
                     writable = 'y'
                 simvar_elem = [elem['description'], elem['simvar'].encode(), elem['type'].encode(), writable]
                 helper.list[elem['name']] = simvar_elem
-            self._aq.list.append(helper)
+            if helper not in self._aq.list:
+                self._aq.list.append(helper)

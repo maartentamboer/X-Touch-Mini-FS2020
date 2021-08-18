@@ -66,6 +66,17 @@ class RotaryEncoder:
     def bind_long_press(self, event):
         self._event_press_long = event
 
+    def reset_configuration(self):
+        self._event_up = None
+        self._event_down = None
+        self._alternate_event_up = None
+        self._alternate_event_down = None
+        self._alternate_active = False
+        self._event_press = None
+        self._event_press_short = None
+        self._event_press_long = None
+        self._current_led_ring_value = 0
+
     @property
     def rotary_control_channel(self):
         return self._receive_data_cc
