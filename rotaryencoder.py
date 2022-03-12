@@ -10,6 +10,8 @@ class RotaryEncoder:
         self._receive_data_note = self._encoder_index - 1
         self._led_ring_value_cc = self._encoder_index + 8
         self._on_layer = ActiveLayerIdentifier.A
+        self._simvar = None
+        self._mobiflightsimvar = None
         self._event_up = None
         self._event_down = None
         self._alternate_event_up = None
@@ -49,6 +51,12 @@ class RotaryEncoder:
         self._current_led_ring_value = value
         self._update_led_ring()
 
+    def bind_led_to_simvar(self, simvar: str):
+        self._simvar = simvar
+
+    def bind_led_to_mobiflightsimvar(self, simvar: str):
+        self._mobiflightsimvar = simvar
+
     def bind_to_event(self, event_up, event_down):
         self._event_up = event_up
         self._event_down = event_down
@@ -67,6 +75,8 @@ class RotaryEncoder:
         self._event_press_long = event
 
     def reset_configuration(self):
+        self._simvar = None
+        self._mobiflightsimvar = None
         self._event_up = None
         self._event_down = None
         self._alternate_event_up = None
@@ -87,11 +97,11 @@ class RotaryEncoder:
 
     @property
     def bound_simvar(self):
-        return None
+        return self._simvar
 
     @property
     def bound_mobiflightsimvar(self):
-        return None
+        return self._mobiflightsimvar
 
 
     def on_cc_data(self, value):
@@ -133,6 +143,18 @@ class RotaryEncoder:
 
     def on_alternate_toggle(self, _):
         self._alternate_active = not self._alternate_active
+
+    def on_simvar_data(self, data):
+        if data == 1.0:
+            self.set_led_ring_on_off(True)
+        else:
+            self.set_led_ring_on_off(False)
+
+    def on_mobiflightsimvar_data(self, data):
+        if data == 1.0:
+            self.set_led_ring_on_off(True)
+        else:
+            self.set_led_ring_on_off(False)
 
     def _update_active_layer(self):
         ActiveLayer().active_layer = self._on_layer

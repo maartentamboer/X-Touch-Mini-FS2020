@@ -93,6 +93,8 @@ class ConfigFile:
             event_press = elem.get('event_press')
             event_short_press = elem.get('event_short_press')
             event_long_press = elem.get('event_long_press')
+            simvar_led = elem.get('simvar_led')
+            mobiflightsimvar_led = elem.get('mobiflightsimvar_led')
             encoder = self._encoders[index - 1]
 
             if event_up and event_down:
@@ -107,6 +109,10 @@ class ConfigFile:
                 encoder.bind_short_press(self._create_binding(encoder, event_short_press))
             if event_long_press:
                 encoder.bind_long_press(self._create_binding(encoder, event_long_press))
+            if simvar_led:
+                encoder.bind_led_to_simvar(simvar_led)
+            if mobiflightsimvar_led:
+                encoder.bind_led_to_mobiflightsimvar(mobiflightsimvar_led)
 
     def _configure_buttons(self, data):
         for btn in self._buttons:
