@@ -95,7 +95,7 @@ if __name__ == '__main__':
         run_aircraft_configuration(storage)
     except Exception as ex:
         print(type(ex), ex)
-    finally:
-        midi.deinit()
-
+        if "rtmidi" not in str(type(ex)):
+            midi.deinit()
+        
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
