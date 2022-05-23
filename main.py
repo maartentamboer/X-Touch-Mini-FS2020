@@ -11,6 +11,7 @@ from globalstorage import GlobalStorage
 from mocksimconnect import MockAircraftEvents, MockAircraftRequests
 from activelayerchanger import ActiveLayerChanger
 from midiconnection import MidiConnection
+from aircraftstaterequest import SystemRequests, CustomSimconnect
 
 
 def connect_to_simulator(offline: bool):
@@ -19,7 +20,7 @@ def connect_to_simulator(offline: bool):
     waiting_time = 10
     while not is_connected and not offline:
         try:
-            sm = SimConnectMobiFlight()
+            sm = CustomSimconnect()
             is_connected = True
         except Exception:
             print(f"Connection to simulator not possible. Retry in {waiting_time}s.") 
@@ -28,15 +29,17 @@ def connect_to_simulator(offline: bool):
 
 
 def initialize(global_storage: GlobalStorage, 
-               sm: SimConnectMobiFlight,
+               sm: CustomSimconnect,
                midi_connection: MidiConnection):
     if sm:
-        sm = SimConnectMobiFlight()
+        sm = CustomSimconnect()
         vr = MobiFlightVariableRequests(sm)
         vr.clear_sim_variables()
         global_storage.set_aircraft_events(AircraftEvents(sm))
-        global_storage.set_aircraft_requests(AircraftRequests(sm, _time=200))
+        global_storage.set_aircraft_requests(AircraftRequests(sm, _time=200, _attemps=20))
         global_storage.set_mobiflight_variable_requests(vr) # Add MobiFlight
+        sq = SystemRequests(sm, _time=200, _attemps=20)
+        global_storage.set_system_request(sq)
     else:
         global_storage.set_aircraft_events(MockAircraftRequests())
         global_storage.set_aircraft_requests(MockAircraftEvents())
@@ -57,16 +60,33 @@ def initialize(global_storage: GlobalStorage,
         global_storage.add_fader(fader)
 
     global_storage.set_active_layer_changer(ActiveLayerChanger(midi_connection.outport))
+    global_storage.set_base_matching(ConfigFile.get_if_use_base_matching())
 
 
 def run_aircraft_configuration(global_storage: GlobalStorage):
     aq = global_storage.aircraft_requests
     vr = global_storage.mobiflight_variable_requests
+    sq = global_storage.system_requests
     current_aircraft = "None"
+    base_matching = global_storage.base_matching
     # Main program loop which checks for aircraft change
     # and reads the simvars for loaded configuration
     while True:
-        aircraft = aq.get('TITLE')
+        if base_matching:
+            aircraft_loaded = sq.get('AIRCRAFT_LOADED')
+            if aircraft_loaded is not None:
+                aircraft_loaded = aircraft_loaded.decode().lower()
+                aircraft_cfg_loc = aircraft_loaded.find('aircraft.cfg')
+                aircraft = aircraft_loaded[aircraft_loaded.rfind('\\', 0, aircraft_cfg_loc - 1) + 1:aircraft_cfg_loc - 1]
+            else: 
+                aircraft = 'None'
+        else:
+            aircraft = aq.get('TITLE')
+            if aircraft is not None:
+                aircraft = aircraft.decode().lower()
+            else:
+                aircraft = 'None'
+
         if aircraft and aircraft != current_aircraft:
             print("Aircraft changed from", current_aircraft, "to", aircraft)
             current_aircraft = aircraft
