@@ -1,3 +1,7 @@
+# Part of code adapted from https://github.com/odwdinc/Python-SimConnect licensed under GPLv3
+# Original Author: odwdinc
+# All rights belong to the original author
+
 from SimConnect import *
 from SimConnect.Enum import *
 from SimConnect.Constants import *
@@ -33,7 +37,7 @@ class CustomSimconnect(SimConnectMobiFlight):
         else:
             LOGGER.warn("Event ID: %d Not Handled." % (dwRequestID))
 
-class SysemStateRequest(object):
+class SystemStateRequest(object):
 
     def get(self):
         return self.value
@@ -114,7 +118,7 @@ class SystemStateRequestHelper:
             setable = False
             if key[3] == 'Y':
                 setable = True
-            ne = SysemStateRequest((key[1], key[2]), self.sm, _dec=key[0], _settable=setable, _time=self.time, _attemps=self.attemps)
+            ne = SystemStateRequest((key[1], key[2]), self.sm, _dec=key[0], _settable=setable, _time=self.time, _attemps=self.attemps)
             setattr(self, _name, ne)
             return ne
         return None
