@@ -78,14 +78,10 @@ def run_aircraft_configuration(global_storage: GlobalStorage):
                 aircraft_loaded = aircraft_loaded.decode().lower()
                 aircraft_cfg_loc = aircraft_loaded.find('aircraft.cfg')
                 aircraft = aircraft_loaded[aircraft_loaded.rfind('\\', 0, aircraft_cfg_loc - 1) + 1:aircraft_cfg_loc - 1]
-            else: 
-                aircraft = 'None'
         else:
-            aircraft = aq.get('TITLE')
-            if aircraft is not None:
-                aircraft = aircraft.decode().lower()
-            else:
-                aircraft = 'None'
+            aircraft_title = aq.get('TITLE')
+            if aircraft_title is not None:
+                aircraft = aircraft_title.decode().lower()
 
         if aircraft and aircraft != current_aircraft:
             print("Aircraft changed from", current_aircraft, "to", aircraft)
