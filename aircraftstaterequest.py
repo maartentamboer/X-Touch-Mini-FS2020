@@ -4,8 +4,6 @@ from SimConnect.Constants import *
 import time
 from ctypes import *
 from ctypes.wintypes import *
-
-from nbformat import current_nbformat
 from MSFSPythonSimConnectMobiFlightExtension.src.simconnect_mobiflight import SimConnectMobiFlight
 
 class CustomSimconnect(SimConnectMobiFlight):
