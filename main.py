@@ -11,7 +11,7 @@ from globalstorage import GlobalStorage
 from mocksimconnect import MockAircraftEvents, MockAircraftRequests
 from activelayerchanger import ActiveLayerChanger
 from midiconnection import MidiConnection
-from aircraftstaterequest import SystemRequests, CustomSimconnect
+from aircraftstaterequest import CustomSimconnect, SystemStateRequest
 
 
 def connect_to_simulator(offline: bool):
@@ -38,7 +38,7 @@ def initialize(global_storage: GlobalStorage,
         global_storage.set_aircraft_events(AircraftEvents(sm))
         global_storage.set_aircraft_requests(AircraftRequests(sm, _time=200, _attemps=20))
         global_storage.set_mobiflight_variable_requests(vr) # Add MobiFlight
-        sq = SystemRequests(sm, _time=200, _attemps=20)
+        sq = SystemStateRequest(sm)
         global_storage.set_system_request(sq)
     else:
         global_storage.set_aircraft_events(MockAircraftRequests())
@@ -73,7 +73,7 @@ def run_aircraft_configuration(global_storage: GlobalStorage):
     # and reads the simvars for loaded configuration
     while True:
         if base_matching:
-            aircraft_loaded = sq.get('AIRCRAFT_LOADED')
+            aircraft_loaded = sq.get_system_state('AircraftLoaded')
             if aircraft_loaded is not None:
                 aircraft_loaded = aircraft_loaded.decode().lower()
                 aircraft_cfg_loc = aircraft_loaded.find('aircraft.cfg')

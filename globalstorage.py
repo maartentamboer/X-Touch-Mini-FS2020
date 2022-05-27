@@ -9,7 +9,7 @@ from pushbutton import PushButton
 from trigger import Trigger
 from fader import Fader
 from activelayerchanger import ActiveLayerChanger
-from aircraftstaterequest import SystemRequests
+from aircraftstaterequest import SystemStateRequest
 
 class GlobalStorage(metaclass=Singleton):
     def __init__(self):
@@ -66,7 +66,7 @@ class GlobalStorage(metaclass=Singleton):
     def set_active_layer_changer(self, ac: ActiveLayerChanger):
         self._active_layer_changer = ac
 
-    def set_system_request(self, sq: SystemRequests):
+    def set_system_request(self, sq: SystemStateRequest):
         self._sq = sq
 
     def set_base_matching(self, base_matching: bool):
@@ -109,7 +109,7 @@ class GlobalStorage(metaclass=Singleton):
         return self._active_layer_changer
 
     @property
-    def system_requests(self) -> SystemRequests:
+    def system_requests(self) -> SystemStateRequest:
         return self._sq
 
     @property
