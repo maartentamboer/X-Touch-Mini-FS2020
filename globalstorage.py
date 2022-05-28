@@ -9,7 +9,7 @@ from pushbutton import PushButton
 from trigger import Trigger
 from fader import Fader
 from activelayerchanger import ActiveLayerChanger
-
+from aircraftstaterequest import SystemStateRequest
 
 class GlobalStorage(metaclass=Singleton):
     def __init__(self):
@@ -22,6 +22,8 @@ class GlobalStorage(metaclass=Singleton):
         self._vr = None
         self._global_variables = {}
         self._active_layer_changer = None  # type: ActiveLayerChanger
+        self._sq = None
+        self._base_matching = None
 
     def clear(self):
         self._buttons = []
@@ -64,6 +66,12 @@ class GlobalStorage(metaclass=Singleton):
     def set_active_layer_changer(self, ac: ActiveLayerChanger):
         self._active_layer_changer = ac
 
+    def set_system_request(self, sq: SystemStateRequest):
+        self._sq = sq
+
+    def set_base_matching(self, base_matching: bool):
+        self._base_matching = base_matching
+
     @property
     def encoders(self) -> List[RotaryEncoder]:
         return self._encoders
@@ -99,3 +107,11 @@ class GlobalStorage(metaclass=Singleton):
     @property
     def active_layer_changer(self) -> ActiveLayerChanger:
         return self._active_layer_changer
+
+    @property
+    def system_requests(self) -> SystemStateRequest:
+        return self._sq
+
+    @property
+    def base_matching(self) -> bool:
+        return self._base_matching

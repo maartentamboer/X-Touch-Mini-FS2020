@@ -24,8 +24,14 @@ class ConfigFile:
             for elem in base_data['aircraft']:
                 aircraft_contains = elem['aircraft_contains']
                 file = elem['file']
-                if aircraft_contains in str(self._aircraft):
-                    config_file = file
+                if isinstance(aircraft_contains, list):
+                    for contain in aircraft_contains:
+                        if contain.lower() in self._aircraft:
+                            config_file = file
+                            break
+                else:
+                    if aircraft_contains.lower() in self._aircraft:
+                        config_file = file
             self._configure_additional_simvars(base_data)
             if 'automatic_layer_revert' in base_data:
                 GlobalStorage().active_layer_changer.enable_layer_revert_timer(base_data['automatic_layer_revert'])
@@ -191,3 +197,12 @@ class ConfigFile:
                 helper.list[elem['name']] = simvar_elem
             if helper not in self._aq.list:
                 self._aq.list.append(helper)
+
+    @staticmethod
+    def get_if_use_base_matching():
+        with open('Configurations/config.json') as base_json_file:
+            base_data = json.load(base_json_file)
+            if 'use_aircraft_base_matching' in base_data:
+                return base_data['use_aircraft_base_matching']
+            else:
+                return False
